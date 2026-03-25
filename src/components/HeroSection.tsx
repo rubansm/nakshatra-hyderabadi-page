@@ -1,4 +1,5 @@
 import { Shield, Leaf, Droplets, Truck, FlameKindling } from "lucide-react";
+import nakshatraLogo from "@/assets/nakshatra-logo.png";
 
 const trustBadges = [
   { icon: Shield, label: "FSSAI Certified" },
@@ -36,6 +37,8 @@ const HeroSection = () => {
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center max-w-3xl">
+          <img src={nakshatraLogo} alt="Nakshatra" className="h-16 md:h-24 mx-auto mb-8 object-contain" />
+
           <p className="font-body text-turmeric uppercase tracking-[0.25em] text-sm mb-5">
             Finest Flavours from a Hyderabadi Family Recipe
           </p>
