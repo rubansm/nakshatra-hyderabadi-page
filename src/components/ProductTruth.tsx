@@ -1,4 +1,5 @@
 import { Check, X } from "lucide-react";
+import ingredientsHero from "@/assets/ingredients-hero.png";
 
 const truths = [
   { good: true, text: "100% boneless chicken pieces" },
@@ -13,14 +14,27 @@ const truths = [
 
 const ProductTruth = () => {
   return (
-    <section className="bg-warm-brown py-16 md:py-24">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <p className="font-body text-turmeric uppercase tracking-[0.2em] text-sm mb-3 text-center">
-          What Goes In
-        </p>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-cream mb-10 text-center">
-          Honest Ingredients. Nothing Else.
-        </h2>
+    <section className="bg-warm-brown">
+      {/* Hero image with overlay text */}
+      <div className="relative">
+        <img
+          src={ingredientsHero}
+          alt="Nakshatra Pickle ingredients — boneless chicken, cold-pressed sesame oil, turmeric, red chili, ginger-garlic paste, mustard seeds, fenugreek, curry leaves, and mixed spices"
+          className="w-full h-auto block"
+        />
+        {/* Text overlay in the headroom area */}
+        <div className="absolute top-0 left-0 right-0 pt-8 md:pt-14 px-4 text-center">
+          <p className="font-body text-turmeric uppercase tracking-[0.25em] text-xs md:text-sm mb-2">
+            What Goes In
+          </p>
+          <h2 className="font-display text-2xl md:text-4xl font-bold text-cream leading-tight">
+            Ingredients That Defy Distance
+          </h2>
+        </div>
+      </div>
+
+      {/* Truth badges below */}
+      <div className="container mx-auto px-4 max-w-3xl py-12 md:py-16">
         <div className="grid sm:grid-cols-2 gap-4">
           {truths.map((item, i) => (
             <div
