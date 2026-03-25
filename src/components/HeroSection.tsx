@@ -1,4 +1,5 @@
 import { Shield, Leaf, Droplets, Truck, FlameKindling } from "lucide-react";
+import nakshatraLogo from "@/assets/nakshatra-logo.png";
 
 const trustBadges = [
   { icon: Shield, label: "FSSAI Certified" },
