@@ -37,7 +37,7 @@ const HeroSection = () => {
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center max-w-3xl">
           <p className="font-body text-turmeric uppercase tracking-[0.25em] text-sm mb-5">
-            A Hyderabad family recipe · Finest flavour
+            Finest Flavours from a Hyderabadi Family Recipe
           </p>
 
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-6">
