@@ -12,8 +12,17 @@ export default {
         "2xl": "1400px",
       },
     },
+    fontFamily: {
+      display: ['Playfair Display', 'serif'],
+      body: ['Source Sans 3', 'sans-serif'],
+    },
     extend: {
       colors: {
+        'warm-brown': 'hsl(var(--warm-brown))',
+        turmeric: 'hsl(var(--turmeric))',
+        terracotta: 'hsl(var(--terracotta))',
+        cream: 'hsl(var(--cream))',
+        'spice-red': 'hsl(var(--spice-red))',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
