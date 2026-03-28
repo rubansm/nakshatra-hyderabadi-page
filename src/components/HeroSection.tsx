@@ -32,7 +32,7 @@ const HeroSection = () => {
             Finest Flavours from a Hyderabadi Family Recipe
           </p>
           <h1
-            className="font-display font-bold text-white text-6xl leading-[1.05] drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]"
+            className="font-display font-bold text-[#FFB300] text-6xl leading-[1.05] drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]"
           >
             Nanama's
             <br />
