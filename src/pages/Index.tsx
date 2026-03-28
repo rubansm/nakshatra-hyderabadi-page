@@ -11,6 +11,7 @@ import FinalCTA from "@/components/FinalCTA";
 const Index = () => {
   return (
     <main className="font-body">
+      <Navbar />
       <HeroSection />
       <OriginStory />
       <ProductTruth />

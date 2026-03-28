@@ -1,5 +1,4 @@
 import { Shield, Leaf, Droplets, Truck, FlameKindling } from "lucide-react";
-import nakshatraLogo from "@/assets/nakshatra-logo.png";
 
 const trustBadges = [
   { icon: Shield, label: "FSSAI Certified" },
@@ -12,44 +11,35 @@ const trustBadges = [
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex flex-col">
-      {/* Announcement Bar */}
-      <div className="relative z-20 bg-turmeric text-warm-brown text-center py-2.5 px-4">
-        <p className="font-body text-sm md:text-base font-semibold tracking-wide">
-          First order in Chennai? Free delivery. Use code:{" "}
-          <span className="font-bold uppercase tracking-widest">FIRSTJAR</span>
-        </p>
-      </div>
-
       {/* Video Background */}
-      <div className="relative flex-1 flex items-center justify-center">
+      <div className="absolute inset-0">
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          className="w-full h-full object-cover"
         >
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
-
-        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-warm-brown/10" />
+      </div>
 
-        {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center max-w-3xl">
-          
-
-          <p className="font-body text-turmeric uppercase tracking-[0.25em] text-sm mb-5">
+      {/* Content */}
+      <div className="relative z-10 flex-1 flex flex-col justify-between pt-20 pb-10 px-6 md:px-12">
+        {/* Top-left: Pre-header + H1 */}
+        <div className="max-w-lg">
+          <p className="font-body text-turmeric uppercase tracking-[0.25em] text-xs mb-3">
             Finest Flavours from a Hyderabadi Family Recipe
           </p>
-
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-6">
+          <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight">
             Nanama's Chicken Pickle
-            <br />
-            <span className="text-turmeric">Made with Soul, Tastes Like Home.</span>
           </h1>
+        </div>
 
-          <p className="font-body text-cream/80 text-xs md:text-sm mb-4 max-w-xl mx-auto">
+        {/* Bottom-center: Tagline + CTA + Badges */}
+        <div className="text-center">
+          <p className="font-body text-cream/70 text-xs md:text-sm mb-4 max-w-md mx-auto">
             Hyderabadi chicken pickle, made without preservatives by the
             Nakshatra family. Now in Chennai.
           </p>
@@ -58,22 +48,19 @@ const HeroSection = () => {
             href="https://wa.me/919999999999?text=I%20want%20to%20order%20Nakshatra%20Chicken%20Pickle"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-turmeric text-warm-brown font-body font-bold px-10 py-4 rounded-md text-lg hover:opacity-90 transition-opacity"
+            className="inline-block bg-turmeric text-warm-brown font-body font-bold px-10 py-4 rounded-md text-lg hover:opacity-90 transition-opacity mb-6"
           >
             Order Your Pack
           </a>
 
-          {/* Trust Badges */}
-          <div className="mt-12 flex flex-wrap justify-center gap-x-6 gap-y-4">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
             {trustBadges.map(({ icon: Icon, label }) => (
               <div
                 key={label}
-                className="flex items-center gap-2 text-cream/70"
+                className="flex items-center gap-2 text-cream/60"
               >
-                <Icon className="w-4 h-4 text-turmeric" />
-                <span className="font-body text-xs md:text-sm tracking-wide">
-                  {label}
-                </span>
+                <Icon className="w-3.5 h-3.5 text-turmeric" />
+                <span className="font-body text-xs tracking-wide">{label}</span>
               </div>
             ))}
           </div>

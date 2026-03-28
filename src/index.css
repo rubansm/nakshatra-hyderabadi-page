@@ -8,6 +8,14 @@ All colors MUST be HSL.
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;500;600&display=swap');
 
+@font-face {
+  font-family: 'RoxboroughCF';
+  src: url('/fonts/RoxboroughCF-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 40 30% 96%;
