@@ -1,11 +1,10 @@
-import { Shield, Leaf, Droplets, Truck, FlameKindling } from "lucide-react";
+import { Shield, Leaf, Droplets, Truck } from "lucide-react";
 
 const trustBadges = [
   { icon: Shield, label: "FSSAI Certified" },
   { icon: Leaf, label: "Zero Preservatives" },
-  { icon: Droplets, label: "Pure Oil" },
-  { icon: Truck, label: "Ships in 2–3 Days" },
-  { icon: FlameKindling, label: "Small Batch Made" },
+  { icon: Droplets, label: "Pure Groundnut Oil" },
+  { icon: Truck, label: "Ships in 1 Day" },
 ];
 
 const HeroSection = () => {
@@ -29,7 +28,7 @@ const HeroSection = () => {
       <div className="relative z-10 flex-1 flex flex-col justify-between pt-24 pb-10 px-6 md:px-12">
         {/* Top-left: Pre-header + H1 */}
         <div className="max-w-[420px]">
-          <p className="text-popover-foreground text-sm font-medium mx-0 my-[24px] text-left px-0 py-0 border-primary-foreground border-0 border-none shadow-sm">
+          <p className="text-white text-lg md:text-xl font-medium my-[24px] text-left drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
             Finest Flavours from a Hyderabadi Family Recipe
           </p>
           <h1
@@ -42,8 +41,8 @@ const HeroSection = () => {
         </div>
 
         {/* Bottom-left: Tagline + CTA + Badges */}
-        <div className="max-w-xl mx-auto text-center">
-          <p className="font-body text-cream/80 text-lg md:text-xl mb-10 max-w-xl mx-auto text-center">
+        <div className="max-w-xl mx-auto text-center flex flex-col items-center gap-6">
+          <p className="font-body text-white text-lg md:text-xl max-w-xl mx-auto text-center drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
             Hyderabadi chicken pickle, made without preservatives by the
             Nakshatra family. Now in Chennai.
           </p>
@@ -52,12 +51,12 @@ const HeroSection = () => {
             href="https://wa.me/919999999999?text=I%20want%20to%20order%20Nakshatra%20Chicken%20Pickle"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[#D97706] text-white font-body font-bold px-14 py-4 rounded-full text-base tracking-wide shadow-[0_6px_20px_rgba(217,119,6,0.5)] hover:scale-105 hover:shadow-[0_8px_28px_rgba(217,119,6,0.6)] transition-all duration-300 mb-5"
+            className="inline-block bg-[#D97706] text-white font-body font-bold px-14 py-4 rounded-full text-base tracking-wide shadow-[0_6px_20px_rgba(217,119,6,0.5)] hover:scale-105 hover:shadow-[0_8px_28px_rgba(217,119,6,0.6)] transition-all duration-300"
           >
             Order Your Pack
           </a>
 
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
             {trustBadges.map(({ icon: Icon, label }) => (
               <div
                 key={label}
