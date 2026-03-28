@@ -1,4 +1,4 @@
-import { Shield, Leaf, Droplets, Truck, FlameKindling } from "lucide-react";
+import { Shield, Leaf, Droplets, Truck } from "lucide-react";
 
 const trustBadges = [
   { icon: Shield, label: "FSSAI Certified" },
