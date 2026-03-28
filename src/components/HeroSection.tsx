@@ -28,11 +28,13 @@ const HeroSection = () => {
       <div className="relative z-10 flex-1 flex flex-col justify-between pt-24 pb-10 px-6 md:px-12">
         {/* Top-left: Pre-header + H1 */}
         <div className="max-w-[420px]">
-          <p className="text-white text-lg md:text-xl font-medium my-[24px] text-left drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
-            Finest Flavours from a Hyderabadi Family Recipe
+          <p className="text-white text-lg md:text-xl font-medium my-[24px] text-left max-w-[420px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+            Finest Flavours from
+            <br />
+            a Hyderabadi Family Recipe
           </p>
           <h1
-            className="font-display font-bold text-[#FFB300] text-6xl leading-[1.05] drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]"
+            className="font-display font-bold text-[#FF8900] text-6xl leading-[1.05] drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]"
           >
             Nanama's
             <br />
