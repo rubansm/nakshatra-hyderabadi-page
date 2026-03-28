@@ -28,11 +28,13 @@ const HeroSection = () => {
       <div className="relative z-10 flex-1 flex flex-col justify-between pt-24 pb-10 px-6 md:px-12">
         {/* Top-left: Pre-header + H1 */}
         <div className="max-w-[420px]">
-          <p className="text-white text-lg md:text-xl font-medium my-[24px] text-left drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
-            Finest Flavours from a Hyderabadi Family Recipe
+          <p className="text-white text-lg md:text-xl font-medium my-[24px] text-left max-w-[420px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+            Finest Flavours from
+            <br />
+            a Hyderabadi Family Recipe
           </p>
           <h1
-            className="font-display font-bold text-[#FFB300] text-6xl leading-[1.05] drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]"
+            className="font-display font-bold text-[#FF8900] text-6xl leading-[1.05] drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]"
           >
             Nanama's
             <br />
@@ -51,7 +53,7 @@ const HeroSection = () => {
             href="https://wa.me/919999999999?text=I%20want%20to%20order%20Nakshatra%20Chicken%20Pickle"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[#D97706] text-white font-body font-bold px-14 py-4 rounded-full text-base tracking-wide shadow-[0_6px_20px_rgba(217,119,6,0.5)] hover:scale-105 hover:shadow-[0_8px_28px_rgba(217,119,6,0.6)] transition-all duration-300"
+            className="inline-block bg-[#FF8900] text-white font-body font-bold px-14 py-4 rounded-full text-base tracking-wide shadow-[0_6px_20px_rgba(255,137,0,0.5)] hover:scale-105 hover:shadow-[0_8px_28px_rgba(255,137,0,0.6)] transition-all duration-300"
           >
             Order Your Pack
           </a>
