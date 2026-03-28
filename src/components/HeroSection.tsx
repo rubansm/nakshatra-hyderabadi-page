@@ -43,8 +43,8 @@ const HeroSection = () => {
         </div>
 
         {/* Bottom-left: Tagline + CTA + Badges */}
-        <div className="max-w-[320px] mx-auto text-center">
-          <p className="font-body text-[#E5E7EB]/80 text-xs md:text-sm mb-4 leading-relaxed drop-shadow-md">
+        <div className="max-w-xl mx-auto text-center">
+          <p className="font-body text-cream/80 text-lg md:text-xl mb-10 max-w-xl mx-auto text-center">
             Hyderabadi chicken pickle, made without preservatives by the
             Nakshatra family. Now in Chennai.
           </p>
