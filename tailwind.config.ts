@@ -15,6 +15,7 @@ export default {
     fontFamily: {
       display: ['Playfair Display', 'serif'],
       body: ['Source Sans 3', 'sans-serif'],
+      navbar: ['RoxboroughCF', 'serif'],
     },
     extend: {
       colors: {
