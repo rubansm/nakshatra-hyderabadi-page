@@ -53,7 +53,7 @@ const HeroSection = () => {
             href="https://wa.me/919999999999?text=I%20want%20to%20order%20Nakshatra%20Chicken%20Pickle"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[#D97706] text-white font-body font-bold px-14 py-4 rounded-full text-base tracking-wide shadow-[0_6px_20px_rgba(217,119,6,0.5)] hover:scale-105 hover:shadow-[0_8px_28px_rgba(217,119,6,0.6)] transition-all duration-300"
+            className="inline-block bg-[#FF8900] text-white font-body font-bold px-14 py-4 rounded-full text-base tracking-wide shadow-[0_6px_20px_rgba(255,137,0,0.5)] hover:scale-105 hover:shadow-[0_8px_28px_rgba(255,137,0,0.6)] transition-all duration-300"
           >
             Order Your Pack
           </a>
