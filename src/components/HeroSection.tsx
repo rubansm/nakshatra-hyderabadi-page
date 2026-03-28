@@ -33,7 +33,7 @@ const HeroSection = () => {
         </video>
 
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-warm-brown/70" />
+        <div className="absolute inset-0 bg-warm-brown/10" />
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center max-w-3xl">
