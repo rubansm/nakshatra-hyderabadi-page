@@ -29,7 +29,7 @@ const HeroSection = () => {
       <div className="relative z-10 flex-1 flex flex-col justify-between pt-24 pb-10 px-6 md:px-12">
         {/* Top-left: Pre-header + H1 */}
         <div className="max-w-[420px]">
-          <p className="text-turmeric uppercase tracking-[0.15em] text-xs md:text-sm font-body mb-3 drop-shadow-md">
+          <p className="text-popover-foreground text-sm font-medium mx-0 my-[24px] text-left px-0 py-0 border-primary-foreground border-0 border-none shadow-sm">
             Finest Flavours from a Hyderabadi Family Recipe
           </p>
           <h1
