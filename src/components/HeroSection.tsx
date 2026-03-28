@@ -34,7 +34,7 @@ const HeroSection = () => {
             a Hyderabadi Family Recipe
           </p>
           <h1
-            className="font-display font-bold text-[#FF8900] text-6xl leading-[1.05] drop-shadow-[0_4px_12px_rgba(255,137,0,0.4)]"
+            className="font-display font-bold text-[#FF8900] text-6xl leading-[1.05] drop-shadow-[0_0_20px_rgba(255,137,0,0.6)] drop-shadow-[0_0_40px_rgba(255,137,0,0.3)]"
           >
             Nanama's
             <br />
