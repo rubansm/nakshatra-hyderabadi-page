@@ -1,21 +1,33 @@
 const Navbar = () => {
   return (
     <nav className="fixed top-4 left-4 right-4 z-50">
-      <div className="max-w-md mx-auto backdrop-blur-xl bg-cream/15 border border-cream/20 rounded-full px-6 h-12 flex items-center justify-center gap-6 shadow-lg shadow-warm-brown/20">
+      <div
+        className="max-w-md mx-auto rounded-full px-6 h-12 flex items-center justify-center gap-6"
+        style={{
+          background: "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(133,53,55,0.12))",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          border: "1px solid rgba(255,255,255,0.15)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
+        }}
+      >
         <a
           href="#origin"
-          className="font-body text-cream/60 text-[11px] tracking-[0.2em] uppercase hover:text-cream/90 transition-colors"
+          className="font-body text-white/70 text-[11px] tracking-[0.15em] uppercase hover:text-white/95 transition-colors"
         >
-          Our Story
+          Story
         </a>
 
-        <span className="font-navbar text-cream text-lg tracking-[0.3em] uppercase font-bold">
+        <a
+          href="/"
+          className="font-navbar text-white/90 text-lg tracking-[0.2em] uppercase font-bold hover:text-white transition-colors"
+        >
           Nakshatra
-        </span>
+        </a>
 
         <a
           href="#pricing"
-          className="font-body text-cream/60 text-[11px] tracking-[0.2em] uppercase hover:text-cream/90 transition-colors"
+          className="font-body text-white/70 text-[11px] tracking-[0.15em] uppercase hover:text-white/95 transition-colors"
         >
           Pickle
         </a>
