@@ -41,8 +41,8 @@ const HeroSection = () => {
         </div>
 
         {/* Bottom-left: Tagline + CTA + Badges */}
-        <div className="max-w-xl mx-auto text-center">
-          <p className="font-body text-cream/80 text-lg md:text-xl mb-10 max-w-xl mx-auto text-center">
+        <div className="max-w-xl mx-auto text-center flex flex-col items-center gap-6">
+          <p className="font-body text-white text-lg md:text-xl max-w-xl mx-auto text-center drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
             Hyderabadi chicken pickle, made without preservatives by the
             Nakshatra family. Now in Chennai.
           </p>
@@ -51,12 +51,12 @@ const HeroSection = () => {
             href="https://wa.me/919999999999?text=I%20want%20to%20order%20Nakshatra%20Chicken%20Pickle"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-[#D97706] text-white font-body font-bold px-14 py-4 rounded-full text-base tracking-wide shadow-[0_6px_20px_rgba(217,119,6,0.5)] hover:scale-105 hover:shadow-[0_8px_28px_rgba(217,119,6,0.6)] transition-all duration-300 mb-5"
+            className="inline-block bg-[#D97706] text-white font-body font-bold px-14 py-4 rounded-full text-base tracking-wide shadow-[0_6px_20px_rgba(217,119,6,0.5)] hover:scale-105 hover:shadow-[0_8px_28px_rgba(217,119,6,0.6)] transition-all duration-300"
           >
             Order Your Pack
           </a>
 
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
             {trustBadges.map(({ icon: Icon, label }) => (
               <div
                 key={label}

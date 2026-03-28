@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <nav className="fixed top-4 left-4 right-4 z-50">
+    <nav className="fixed top-6 left-4 right-4 z-50">
       <div
         className="max-w-md mx-auto rounded-full px-6 h-12 flex items-center justify-center gap-6"
         style={{
