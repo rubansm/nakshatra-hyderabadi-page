@@ -35,7 +35,7 @@ const HeroSection = () => {
           </p>
           <h1
             className="font-display font-bold text-[#FF8900] text-6xl leading-[1.05]"
-            style={{ textShadow: '0 0 10px rgba(255,137,0,0.8), 0 0 30px rgba(255,137,0,0.5), 0 0 60px rgba(255,137,0,0.3)' }}
+            style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}
           >
             Nanama's
             <br />
