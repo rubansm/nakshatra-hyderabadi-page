@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import OriginStory from "@/components/OriginStory";
 import ProductTruth from "@/components/ProductTruth";
