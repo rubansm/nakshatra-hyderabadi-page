@@ -3,9 +3,8 @@ import { Shield, Leaf, Droplets, Truck, FlameKindling } from "lucide-react";
 const trustBadges = [
   { icon: Shield, label: "FSSAI Certified" },
   { icon: Leaf, label: "Zero Preservatives" },
-  { icon: Droplets, label: "Pure Oil" },
-  { icon: Truck, label: "Ships in 2–3 Days" },
-  { icon: FlameKindling, label: "Small Batch Made" },
+  { icon: Droplets, label: "Pure Groundnut Oil" },
+  { icon: Truck, label: "Ships in 1 Day" },
 ];
 
 const HeroSection = () => {
