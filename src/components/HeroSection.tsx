@@ -49,7 +49,7 @@ const HeroSection = () => {
             <span className="text-turmeric">Made with Soul, Tastes Like Home.</span>
           </h1>
 
-          <p className="font-body text-cream/80 text-lg md:text-xl mb-10 max-w-xl mx-auto">
+          <p className="font-body text-cream/80 text-xs md:text-sm mb-4 max-w-xl mx-auto">
             Hyderabadi chicken pickle, made without preservatives by the
             Nakshatra family. Now in Chennai.
           </p>
