@@ -26,15 +26,10 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col justify-between pt-24 pb-10 px-6 md:px-12">
-        {/* Top-left: Pre-header + H1 */}
+        {/* Top: H1 */}
         <div className="max-w-[420px]">
-          <p className="text-white text-lg md:text-xl font-medium my-[24px] text-left max-w-[420px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
-            Finest Flavours from
-            <br />
-            a Hyderabadi Family Recipe
-          </p>
           <h1
-            className="font-display font-bold text-[#FFB347] text-6xl leading-[1.05]"
+            className="font-display font-bold text-[#FFB347] text-6xl leading-[1.05] mt-[24px]"
             style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}
           >
             Nanama's
@@ -43,12 +38,8 @@ const HeroSection = () => {
           </h1>
         </div>
 
-        {/* Bottom-left: Tagline + CTA + Badges */}
+        {/* Bottom: CTA + Badges */}
         <div className="max-w-xl mx-auto text-center flex flex-col items-center gap-6">
-          <p className="font-body text-white text-lg md:text-xl max-w-xl mx-auto text-center drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
-            Hyderabadi chicken pickle, made without preservatives by the
-            Nakshatra family. Now in Chennai.
-          </p>
 
           <a
             href="https://wa.me/919999999999?text=I%20want%20to%20order%20Nakshatra%20Chicken%20Pickle"
