@@ -21,6 +21,7 @@ const Index = () => {
       <ProductSection />
       <FAQSection />
       <FinalCTA />
+      <FloatingCTA />
     </main>
   );
 };
