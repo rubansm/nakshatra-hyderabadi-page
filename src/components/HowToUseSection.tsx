@@ -72,7 +72,7 @@ const HowToUseSection = () => {
                 className="w-20 h-20 md:w-32 md:h-32 rounded-full bg-card border-2 border-border flex items-center justify-center mb-3 md:mb-5 relative z-10 transition-transform duration-500 hover:scale-105"
                 style={{ animationDelay: `${i * 200}ms` }}
               >
-                <span className="text-4xl">{step.visual}</span>
+                <span className="text-2xl md:text-4xl">{step.visual}</span>
               </div>
 
               {/* Step number */}
