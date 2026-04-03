@@ -20,19 +20,6 @@ const steps = [
 ];
 
 const HowToUseSection = () => {
-  const [currentFood, setCurrentFood] = useState(0);
-  const [fadeState, setFadeState] = useState<"in" | "out">("in");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFadeState("out");
-      setTimeout(() => {
-        setCurrentFood((prev) => (prev + 1) % pairingFoods.length);
-        setFadeState("in");
-      }, 400);
-    }, 2200);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section className="bg-background py-20 md:py-32 overflow-hidden">
