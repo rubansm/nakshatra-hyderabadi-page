@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 
 type VariantKey = "250g" | "500g" | "1kg" | "more";
@@ -59,128 +59,111 @@ const ProductSection = () => {
   };
 
   return (
-    <section id="pricing" className="bg-background py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        {/* Glassmorphism Toggle */}
-        <div className="flex justify-center mb-12">
-          <div
-            className="inline-flex rounded-full p-1 gap-1"
-            style={{
-              background: "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(133,53,55,0.12))",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              border: "1px solid rgba(255,255,255,0.15)",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
-            }}
-          >
-            {toggleOptions.map((key) => (
-              <button
-                key={key}
-                onClick={() => handleToggle(key)}
-                className={`px-5 py-2 rounded-full text-sm font-body font-semibold uppercase tracking-wider transition-all duration-200 ${
-                  selected === key
-                    ? "text-white shadow-md"
-                    : "text-foreground/70 hover:text-foreground"
-                }`}
-                style={
-                  selected === key
-                    ? { backgroundColor: "#FF8900" }
-                    : {}
-                }
-              >
-                {key === "more" ? "More" : key}
-              </button>
-            ))}
-          </div>
+    <section id="pricing" className="bg-background py-10 md:py-14">
+      <div className="container mx-auto px-4 flex flex-col items-center">
+        {/* Toggle */}
+        <div
+          className="inline-flex rounded-full p-1 gap-1 mb-5"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(133,53,55,0.12))",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.12)",
+          }}
+        >
+          {toggleOptions.map((key) => (
+            <button
+              key={key}
+              onClick={() => handleToggle(key)}
+              className={`px-4 py-1.5 rounded-full text-xs font-body font-semibold uppercase tracking-wider transition-all duration-200 ${
+                selected === key
+                  ? "text-white shadow-md"
+                  : "text-foreground/70 hover:text-foreground"
+              }`}
+              style={selected === key ? { backgroundColor: "#FF8900" } : {}}
+            >
+              {key === "more" ? "More" : key}
+            </button>
+          ))}
         </div>
 
-        {/* Product Display */}
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-          {/* Left: Image */}
-          <div
-            className={`transition-all duration-200 ease-out ${
-              fade ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
-            }`}
-          >
-            <div className="aspect-square rounded-2xl bg-card flex items-center justify-center">
-              <span className="font-body text-muted-foreground text-sm uppercase tracking-widest">
-                Product Image
-              </span>
-            </div>
+        {/* Content - all center aligned */}
+        <div
+          className={`w-full max-w-lg flex flex-col items-center text-center transition-all duration-200 ease-out ${
+            fade ? "opacity-0 translate-y-1" : "opacity-100 translate-y-0"
+          }`}
+        >
+          {/* H1 + Tagline */}
+          <h2 className="font-navbar text-2xl md:text-3xl font-bold text-foreground leading-tight">
+            {current.title}
+          </h2>
+          <p className="font-body text-muted-foreground text-sm mt-1 mb-4">
+            {current.tagline}
+          </p>
+
+          {/* Image - shorter aspect ratio */}
+          <div className="w-full max-w-sm aspect-[4/3] rounded-2xl bg-card flex items-center justify-center mb-4">
+            <span className="font-body text-muted-foreground text-xs uppercase tracking-widest">
+              Product Image
+            </span>
           </div>
 
-          {/* Right: Content */}
-          <div
-            className={`flex flex-col gap-5 transition-all duration-200 ease-out ${
-              fade ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"
-            }`}
+          {/* Description */}
+          <p className="font-body text-foreground/80 text-sm leading-relaxed max-w-xs mb-3">
+            {current.description}
+          </p>
+
+          {/* Price */}
+          <p
+            className="font-navbar text-2xl md:text-3xl font-bold mb-3"
+            style={{ color: "#FF8900" }}
           >
-            <div>
-              <h2 className="font-navbar text-3xl md:text-4xl font-bold text-foreground leading-tight">
-                {current.title}
-              </h2>
-              <p className="font-body text-muted-foreground text-base mt-1">
-                {current.tagline}
-              </p>
-            </div>
+            {current.price}
+          </p>
 
-            <p className="font-body text-foreground/80 text-sm leading-relaxed">
-              {current.description}
-            </p>
-
-            {/* Price */}
-            <p
-              className="font-navbar text-3xl md:text-4xl font-bold"
-              style={{ color: "#FF8900" }}
-            >
-              {current.price}
-            </p>
-
-            {/* Quantity + CTA */}
-            {!current.isCustom ? (
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-2">
-                {/* Quantity Selector */}
-                <div className="flex items-center gap-3 border border-border rounded-full px-2 py-1">
-                  <button
-                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-foreground/70 hover:text-foreground transition-colors"
-                  >
-                    <Minus size={16} />
-                  </button>
-                  <span className="font-body font-semibold text-foreground w-6 text-center">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => setQuantity((q) => q + 1)}
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-foreground/70 hover:text-foreground transition-colors"
-                  >
-                    <Plus size={16} />
-                  </button>
-                </div>
-
-                {/* CTA */}
-                <a
-                  href="https://wa.me/919999999999"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center font-body font-semibold text-white px-8 py-3 rounded-full transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: "#FF8900" }}
+          {/* Quantity + CTA */}
+          {!current.isCustom ? (
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 border border-border rounded-full px-2 py-1">
+                <button
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-foreground/70 hover:text-foreground transition-colors"
                 >
-                  Add to Cart
-                </a>
+                  <Minus size={14} />
+                </button>
+                <span className="font-body font-semibold text-foreground w-5 text-center text-sm">
+                  {quantity}
+                </span>
+                <button
+                  onClick={() => setQuantity((q) => q + 1)}
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-foreground/70 hover:text-foreground transition-colors"
+                >
+                  <Plus size={14} />
+                </button>
               </div>
-            ) : (
+
               <a
                 href="https://wa.me/919999999999"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center font-body font-semibold text-white px-8 py-3 rounded-full transition-opacity hover:opacity-90 mt-2 self-start"
+                className="inline-flex items-center justify-center font-body font-semibold text-white px-6 py-2.5 rounded-full text-sm transition-opacity hover:opacity-90"
                 style={{ backgroundColor: "#FF8900" }}
               >
-                Enquire Now
+                Add to Cart
               </a>
-            )}
-          </div>
+            </div>
+          ) : (
+            <a
+              href="https://wa.me/919999999999"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center font-body font-semibold text-white px-6 py-2.5 rounded-full text-sm transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "#FF8900" }}
+            >
+              Enquire Now
+            </a>
+          )}
         </div>
       </div>
     </section>
