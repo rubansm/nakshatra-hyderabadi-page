@@ -34,7 +34,7 @@ const HowToUseSection = () => {
       </div>
 
       {/* 3-Step Horizontal Flow */}
-      <div className="container mx-auto px-4 mb-20 md:mb-28">
+      <div className="container mx-auto px-4 mb-10 md:mb-14">
         <div className="flex flex-row items-start justify-center gap-4 md:gap-0 max-w-4xl mx-auto relative pb-4">
           {/* Connecting line (desktop only) */}
           <div className="hidden md:block absolute top-16 left-[16.67%] right-[16.67%] h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -76,7 +76,7 @@ const HowToUseSection = () => {
       </div>
 
       {/* Video Placeholder */}
-      <div className="container mx-auto px-4 mb-20 md:mb-28">
+      <div className="container mx-auto px-4 mb-14 md:mb-20">
         <div className="max-w-lg mx-auto">
           <div className="aspect-square rounded-2xl bg-muted/30 flex items-center justify-center overflow-hidden">
             <p className="font-body text-muted-foreground/40 text-sm">Video</p>
