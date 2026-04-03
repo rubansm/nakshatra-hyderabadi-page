@@ -1,5 +1,4 @@
 import { Shield, Leaf, Droplets, Truck } from "lucide-react";
-import FloatingCTA from "./FloatingCTA";
 
 const trustBadges = [
   { icon: Shield, label: "FSSAI Certified" },
@@ -41,10 +40,8 @@ const HeroSection = () => {
 
         {/* Bottom: CTA + Badges */}
         <div className="max-w-xl mx-auto text-center flex flex-col items-center gap-6">
-          {/* Placeholder to reserve space + the actual CTA lives here in hero state */}
-          <div id="hero-cta-placeholder" className="relative">
-            <FloatingCTA />
-          </div>
+          {/* Invisible spacer so badges don't jump when CTA goes fixed */}
+          <div className="h-[56px]" />
 
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
             {trustBadges.map(({ icon: Icon, label }) => (
