@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 const FloatingCTA = () => {
-  const [isMerged, setIsMerged] = useState(false);
-  const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
+  const [state, setState] = useState<"floating" | "merging" | "merged">("floating");
   const hasSnapped = useRef(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const mergeTimeout = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     const productEl = document.getElementById("pricing");
@@ -12,26 +12,62 @@ const FloatingCTA = () => {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const entering = entry.intersectionRatio >= 0.3;
-        
-        // Snap-scroll when product section first enters bottom of screen
-        if (entering && !hasSnapped.current) {
+        const visible = entry.intersectionRatio >= 0.3;
+
+        // Snap-scroll once when product section enters
+        if (visible && !hasSnapped.current) {
           hasSnapped.current = true;
           productEl.scrollIntoView({ behavior: "smooth", block: "center" });
         }
-        
-        if (!entering) {
+        if (!visible) {
           hasSnapped.current = false;
         }
 
-        // Merge when section is well visible
         const shouldMerge = entry.intersectionRatio >= 0.6;
-        setIsMerged(shouldMerge);
 
-        if (shouldMerge) {
+        if (shouldMerge && state === "floating") {
+          // Start merging: get target position and animate there
           const productCTA = document.querySelector<HTMLElement>("[data-product-cta]");
-          if (productCTA) {
-            setTargetRect(productCTA.getBoundingClientRect());
+          if (productCTA && buttonRef.current) {
+            const targetRect = productCTA.getBoundingClientRect();
+            const btn = buttonRef.current;
+            
+            // Set explicit position to animate TO
+            btn.style.top = `${targetRect.top}px`;
+            btn.style.left = `${targetRect.left}px`;
+            btn.style.width = `${targetRect.width}px`;
+            btn.style.height = `${targetRect.height}px`;
+            btn.style.padding = "0";
+            btn.style.bottom = "auto";
+            btn.style.transform = "none";
+            btn.style.fontSize = "14px";
+            btn.style.fontWeight = "600";
+            btn.style.boxShadow = "none";
+          }
+          setState("merging");
+          
+          // After transition completes, switch to fully merged (hide floating, show product CTA)
+          clearTimeout(mergeTimeout.current);
+          mergeTimeout.current = setTimeout(() => {
+            setState("merged");
+          }, 500);
+        } else if (!shouldMerge && state !== "floating") {
+          clearTimeout(mergeTimeout.current);
+          setState("floating");
+          
+          // Reset inline styles
+          if (buttonRef.current) {
+            const btn = buttonRef.current;
+            btn.style.top = "auto";
+            btn.style.left = "50%";
+            btn.style.width = "";
+            btn.style.height = "";
+            btn.style.padding = "";
+            btn.style.bottom = "88px";
+            btn.style.transform = "translateX(-50%)";
+            btn.style.fontSize = "";
+            btn.style.fontWeight = "";
+            btn.style.boxShadow = "";
           }
         }
       },
@@ -39,82 +75,60 @@ const FloatingCTA = () => {
     );
 
     observer.observe(productEl);
-    return () => observer.disconnect();
-  }, []);
-
-  // Continuously update target rect position when merged
-  useEffect(() => {
-    if (!isMerged) return;
-    
-    let raf: number;
-    const update = () => {
-      const productCTA = document.querySelector<HTMLElement>("[data-product-cta]");
-      if (productCTA) {
-        setTargetRect(productCTA.getBoundingClientRect());
-      }
-      raf = requestAnimationFrame(update);
+    return () => {
+      observer.disconnect();
+      clearTimeout(mergeTimeout.current);
     };
-    raf = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(raf);
-  }, [isMerged]);
+  }, [state]);
 
-  // Hide product CTA when merged
+  // When fully merged, hide floating and show product CTA
+  // When not merged, show floating and hide product CTA
   useEffect(() => {
     const productCTA = document.querySelector<HTMLElement>("[data-product-cta]");
     if (!productCTA) return;
-    productCTA.style.opacity = isMerged ? "0" : "1";
-    productCTA.style.transition = "opacity 150ms ease";
-  }, [isMerged]);
+    
+    if (state === "merged") {
+      productCTA.style.opacity = "1";
+      productCTA.style.transition = "opacity 100ms ease";
+    } else if (state === "merging") {
+      productCTA.style.opacity = "0";
+      productCTA.style.transition = "opacity 100ms ease";
+    } else {
+      productCTA.style.opacity = "1";
+      productCTA.style.transition = "opacity 150ms ease";
+    }
+  }, [state]);
 
   const handleClick = useCallback(() => {
-    if (isMerged) {
+    if (state === "merged") {
       const productCTA = document.querySelector<HTMLAnchorElement>("[data-product-cta]");
       if (productCTA) productCTA.click();
     } else {
       const productEl = document.getElementById("pricing");
       if (productEl) productEl.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  }, [isMerged]);
+  }, [state]);
 
-  // Use a consistent positioning approach: always use top/left with transform
-  const getStyle = (): React.CSSProperties => {
-    if (isMerged && targetRect) {
-      return {
-        backgroundColor: "#FF8900",
-        willChange: "transform, top, left, width, height, padding",
-        top: `${targetRect.top}px`,
-        left: `${targetRect.left}px`,
-        width: `${targetRect.width}px`,
-        height: `${targetRect.height}px`,
-        padding: 0,
-        transform: "none",
-        bottom: "auto",
-      };
-    }
-    
-    // Default floating position - use top calculated from viewport
-    return {
-      backgroundColor: "#FF8900",
-      willChange: "transform, top, left, width, height, padding",
-      bottom: "88px",
-      left: "50%",
-      transform: "translateX(-50%)",
-      top: "auto",
-    };
-  };
+  // When fully merged, hide the floating button entirely
+  if (state === "merged") {
+    return null;
+  }
 
   return (
     <button
       ref={buttonRef}
       onClick={handleClick}
-      className={`fixed z-50 font-body font-bold text-white rounded-full flex items-center justify-center whitespace-nowrap ${
-        isMerged
-          ? "text-sm font-semibold shadow-none transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
-          : "px-14 py-4 text-base tracking-wide shadow-[0_4px_16px_rgba(255,137,0,0.4)] hover:scale-105 hover:shadow-[0_6px_24px_rgba(255,137,0,0.5)] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
-      }`}
-      style={getStyle()}
+      className="fixed z-50 font-body font-bold text-white rounded-full flex items-center justify-center whitespace-nowrap px-14 py-4 text-base tracking-wide shadow-[0_4px_16px_rgba(255,137,0,0.4)] hover:scale-105 hover:shadow-[0_6px_24px_rgba(255,137,0,0.5)] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
+      style={{
+        backgroundColor: "#FF8900",
+        willChange: "transform, top, left, width, height, padding",
+        bottom: "88px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        top: "auto",
+      }}
     >
-      {isMerged ? "Add to Cart" : "Order Your Pack"}
+      {state === "merging" ? "Add to Cart" : "Order Your Pack"}
     </button>
   );
 };
