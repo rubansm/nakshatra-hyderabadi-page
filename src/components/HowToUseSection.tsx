@@ -101,60 +101,26 @@ const HowToUseSection = () => {
         </div>
       </div>
 
-      {/* GIF / Video Placeholder */}
+      {/* Video Placeholder */}
       <div className="container mx-auto px-4 mb-20 md:mb-28">
         <div className="max-w-lg mx-auto">
-          <div className="aspect-square rounded-2xl bg-card border-2 border-dashed border-border flex items-center justify-center overflow-hidden">
-            <div className="text-center p-8">
-              <span className="text-6xl mb-4 block">🍛</span>
-              <p className="font-body text-muted-foreground text-sm">
-                Video placeholder — mixing the food
-              </p>
-            </div>
+          <div className="aspect-square rounded-2xl bg-muted/30 flex items-center justify-center overflow-hidden">
+            <p className="font-body text-muted-foreground/40 text-sm">Video</p>
           </div>
         </div>
       </div>
 
-      {/* Dynamic Pairing */}
-      <div className="container mx-auto px-4 text-center">
+      {/* Pairs with Everything */}
+      <div className="container mx-auto px-4 text-center mb-16">
         <h2 className="font-navbar text-3xl md:text-5xl font-bold text-foreground leading-tight mb-10">
           Pairs with Everything
         </h2>
-
-        <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
-          {/* Fixed pickle element */}
-          <div className="flex flex-col items-center">
-            <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-accent/10 border-2 border-accent/30 flex items-center justify-center">
-              <span className="text-5xl md:text-6xl">🫙</span>
-            </div>
-            <span className="font-navbar text-sm md:text-base font-bold text-foreground mt-3">
-              Chicken Pickle
-            </span>
-          </div>
-
-          {/* Plus sign */}
-          <span className="font-navbar text-3xl md:text-4xl text-muted-foreground/40 font-bold">
-            +
-          </span>
-
-          {/* Rotating food */}
-          <div className="flex flex-col items-center">
-            <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-card border-2 border-border flex items-center justify-center">
-              <span className="text-5xl md:text-6xl">🍚</span>
-            </div>
-            <span
-              className={`font-navbar text-sm md:text-base font-bold text-foreground mt-3 transition-all duration-400 ${
-                fadeState === "in"
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-2"
-              }`}
-            >
-              {pairingFoods[currentFood]}
-            </span>
+        <div className="max-w-lg mx-auto">
+          <div className="aspect-square rounded-2xl bg-muted/30 flex items-center justify-center overflow-hidden">
+            <p className="font-body text-muted-foreground/40 text-sm">Video</p>
           </div>
         </div>
 
-        {/* Subtle closing line */}
         <p className="font-body text-muted-foreground text-base md:text-lg mt-14 max-w-md mx-auto leading-relaxed">
           One jar. Every meal. No sides needed.
         </p>
