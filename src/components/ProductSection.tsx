@@ -144,6 +144,7 @@ const ProductSection = () => {
               </div>
 
               <a
+                data-product-cta
                 href="https://wa.me/919999999999"
                 target="_blank"
                 rel="noopener noreferrer"
