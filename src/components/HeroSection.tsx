@@ -9,7 +9,7 @@ const trustBadges = [
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex flex-col">
+    <section id="hero" className="relative min-h-screen flex flex-col">
       {/* Video Background */}
       <div className="absolute inset-0">
         <video
