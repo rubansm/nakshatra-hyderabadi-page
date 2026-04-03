@@ -9,9 +9,9 @@ const FloatingCTA = () => {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setVisible(entry.intersectionRatio < 0.3);
+        setVisible(!entry.isIntersecting);
       },
-      { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5] }
+      { threshold: 0.05 }
     );
 
     observer.observe(productEl);
