@@ -13,21 +13,21 @@ const Navbar = () => {
       >
         <a
           href="#origin"
-          className="font-body text-[#FF8900]/80 text-[11px] tracking-[0.15em] uppercase hover:text-[#FF8900] transition-colors"
+          className="font-body text-black/70 text-[11px] tracking-[0.15em] uppercase hover:text-black transition-colors"
         >
           Story
         </a>
 
         <a
           href="/"
-          className="font-navbar text-[#1a1a1a] text-lg tracking-[0.2em] uppercase font-bold hover:text-[#FF8900] transition-colors"
+          className="font-navbar text-black text-lg tracking-[0.2em] uppercase font-bold hover:text-black/80 transition-colors"
         >
           Nakshatra
         </a>
 
         <a
           href="#pricing"
-          className="font-body text-[#FF8900]/80 text-[11px] tracking-[0.15em] uppercase hover:text-[#FF8900] transition-colors"
+          className="font-body text-black/70 text-[11px] tracking-[0.15em] uppercase hover:text-black transition-colors"
         >
           Pickle
         </a>
