@@ -76,7 +76,7 @@ const HowToUseSection = () => {
       </div>
 
       {/* Video Placeholder */}
-      <div className="container mx-auto px-4 mb-20 md:mb-28">
+      <div className="container mx-auto px-4 mb-14 md:mb-20">
         <div className="max-w-lg mx-auto">
           <div className="aspect-square rounded-2xl bg-muted/30 flex items-center justify-center overflow-hidden">
             <p className="font-body text-muted-foreground/40 text-sm">Video</p>
