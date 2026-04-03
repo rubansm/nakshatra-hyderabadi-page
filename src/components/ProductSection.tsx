@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
 
 type VariantKey = "250g" | "500g" | "1kg" | "more";
