@@ -1,59 +1,100 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
+type CTAState = "hero" | "floating" | "merging" | "merged";
+
 const FloatingCTA = () => {
-  const [isHeroVisible, setIsHeroVisible] = useState(true);
-  const [isProductVisible, setIsProductVisible] = useState(false);
-  const [isProductFullyVisible, setIsProductFullyVisible] = useState(false);
-  const [isMerged, setIsMerged] = useState(false);
-  const [ctaText, setCtaText] = useState("Order Your Pack");
-  const floatingRef = useRef<HTMLButtonElement>(null);
+  const [ctaState, setCtaState] = useState<CTAState>("hero");
+  const [heroBounds, setHeroBounds] = useState<DOMRect | null>(null);
+  const heroCtaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const heroEl = document.getElementById("hero");
     const productEl = document.getElementById("pricing");
+    const heroCTAPlaceholder = document.getElementById("hero-cta-placeholder");
 
     if (!heroEl || !productEl) return;
 
+    // Capture hero CTA position
+    const updateHeroBounds = () => {
+      if (heroCTAPlaceholder) {
+        setHeroBounds(heroCTAPlaceholder.getBoundingClientRect());
+      }
+    };
+    updateHeroBounds();
+
     const heroObserver = new IntersectionObserver(
-      ([entry]) => setIsHeroVisible(entry.isIntersecting),
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+          setCtaState("hero");
+          updateHeroBounds();
+        }
+      },
       { threshold: 0.3 }
     );
 
-    const productObserver = new IntersectionObserver(
-      ([entry]) => setIsProductVisible(entry.intersectionRatio >= 0.7),
-      { threshold: 0.7 }
+    const floatingObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          // Hero is off screen — float
+          setCtaState((prev) => (prev === "merged" || prev === "merging") ? prev : "floating");
+        }
+      },
+      { threshold: 0.1 }
     );
 
-    const productFullObserver = new IntersectionObserver(
-      ([entry]) => setIsProductFullyVisible(entry.intersectionRatio >= 0.9),
-      { threshold: 0.9 }
+    const productObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.intersectionRatio >= 0.8) {
+          setCtaState("merged");
+        } else if (entry.intersectionRatio >= 0.5) {
+          setCtaState("merging");
+        } else {
+          setCtaState((prev) => {
+            if (prev === "merged" || prev === "merging") {
+              // Check if hero is visible
+              const heroRect = heroEl.getBoundingClientRect();
+              return heroRect.bottom > 100 ? "hero" : "floating";
+            }
+            return prev;
+          });
+        }
+      },
+      { threshold: [0, 0.5, 0.8, 1] }
     );
 
     heroObserver.observe(heroEl);
+    floatingObserver.observe(heroEl);
     productObserver.observe(productEl);
-    productFullObserver.observe(productEl);
+
+    const handleScroll = () => {
+      if (heroCTAPlaceholder) {
+        const rect = heroCTAPlaceholder.getBoundingClientRect();
+        // Only update when hero is in view
+        if (rect.top > -200 && rect.top < window.innerHeight + 200) {
+          setHeroBounds(rect);
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       heroObserver.disconnect();
+      floatingObserver.disconnect();
       productObserver.disconnect();
-      productFullObserver.disconnect();
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  // Merge logic
+  // Hide product CTA when merged
   useEffect(() => {
-    if (isProductFullyVisible) {
-      setIsMerged(true);
-      setCtaText("Add to Cart");
-    } else {
-      setIsMerged(false);
-      setCtaText("Order Your Pack");
-    }
-  }, [isProductFullyVisible]);
+    const productCTA = document.querySelector<HTMLElement>("[data-product-cta]");
+    if (!productCTA) return;
+    productCTA.style.opacity = ctaState === "merged" ? "0" : "1";
+    productCTA.style.transition = "opacity 200ms ease";
+  }, [ctaState]);
 
   const handleClick = useCallback(() => {
-    if (isMerged) {
-      // Trigger the product section's Add to Cart
+    if (ctaState === "merged") {
       const productCTA = document.querySelector<HTMLAnchorElement>("[data-product-cta]");
       if (productCTA) productCTA.click();
     } else {
@@ -62,36 +103,85 @@ const FloatingCTA = () => {
         productEl.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }, [isMerged]);
+  }, [ctaState]);
 
-  // Don't show when hero is visible (hero has its own CTA)
-  const isVisible = !isHeroVisible;
+  const isMerged = ctaState === "merged";
+  const label = isMerged ? "Add to Cart" : "Order Your Pack";
 
-  // When approaching product section, begin scale-down
-  const scale = isMerged ? 0.85 : isProductVisible ? 0.9 : 1;
+  // Compute styles based on state
+  const getStyles = (): React.CSSProperties => {
+    const base: React.CSSProperties = {
+      backgroundColor: "#FF8900",
+      willChange: "transform, opacity, top, left, width",
+      transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+      zIndex: 50,
+    };
+
+    switch (ctaState) {
+      case "hero":
+        return {
+          ...base,
+          position: "absolute",
+        };
+
+      case "floating":
+        return {
+          ...base,
+          position: "fixed",
+          bottom: "24px",
+          left: "50%",
+          transform: "translateX(-50%) scale(0.95)",
+        };
+
+      case "merging":
+        return {
+          ...base,
+          position: "fixed",
+          bottom: "24px",
+          left: "50%",
+          transform: "translateX(-50%) scale(0.88)",
+        };
+
+      case "merged": {
+        // Position exactly over the product CTA
+        const productCTA = document.querySelector<HTMLElement>("[data-product-cta]");
+        if (productCTA) {
+          const rect = productCTA.getBoundingClientRect();
+          return {
+            ...base,
+            position: "fixed",
+            top: `${rect.top}px`,
+            left: `${rect.left}px`,
+            width: `${rect.width}px`,
+            height: `${rect.height}px`,
+            transform: "scale(1)",
+            padding: 0,
+          };
+        }
+        return {
+          ...base,
+          position: "fixed",
+          bottom: "24px",
+          left: "50%",
+          transform: "translateX(-50%) scale(0.85)",
+        };
+      }
+    }
+  };
 
   return (
     <button
-      ref={floatingRef}
       onClick={handleClick}
-      className={`fixed z-50 font-body font-bold text-white rounded-full shadow-[0_4px_20px_rgba(255,137,0,0.4)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        isVisible
-          ? "opacity-100 translate-y-0 pointer-events-auto"
-          : "opacity-0 translate-y-4 pointer-events-none"
-      } ${
-        isMerged
-          ? "px-6 py-2.5 text-sm bottom-6 left-1/2 -translate-x-1/2 md:bottom-8"
-          : "px-10 py-3.5 text-base bottom-6 left-1/2 -translate-x-1/2 md:bottom-8 md:right-8 md:left-auto md:translate-x-0"
+      className={`font-body font-bold text-white rounded-full shadow-[0_4px_16px_rgba(255,137,0,0.4)] hover:shadow-[0_6px_24px_rgba(255,137,0,0.5)] flex items-center justify-center ${
+        ctaState === "hero"
+          ? "px-14 py-4 text-base tracking-wide"
+          : isMerged
+          ? "text-sm font-semibold"
+          : "px-10 py-3.5 text-base tracking-wide"
       }`}
-      style={{
-        backgroundColor: "#FF8900",
-        transform: `${isVisible ? "translateY(0)" : "translateY(1rem)"} ${
-          !isMerged ? "translateX(-50%)" : "translateX(-50%)"
-        } scale(${scale})`,
-        willChange: "transform, opacity",
-      }}
+      style={getStyles()}
     >
-      {ctaText}
+      {label}
     </button>
   );
 };
