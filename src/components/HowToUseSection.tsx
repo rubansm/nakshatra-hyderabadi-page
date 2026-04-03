@@ -92,7 +92,7 @@ const HowToUseSection = () => {
 
               {/* Arrow between steps (desktop) */}
               {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-14 -right-3 z-20 text-muted-foreground/30 text-2xl">
+                <div className="absolute top-8 md:top-14 -right-2 md:-right-3 z-20 text-muted-foreground/30 text-lg md:text-2xl">
                   →
                 </div>
               )}
