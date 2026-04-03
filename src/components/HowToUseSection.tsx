@@ -61,18 +61,18 @@ const HowToUseSection = () => {
 
       {/* 3-Step Horizontal Flow */}
       <div className="container mx-auto px-4 mb-20 md:mb-28">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 max-w-4xl mx-auto relative">
+        <div className="flex flex-row items-start justify-center gap-4 md:gap-0 max-w-4xl mx-auto relative overflow-x-auto pb-4">
           {/* Connecting line (desktop only) */}
           <div className="hidden md:block absolute top-16 left-[16.67%] right-[16.67%] h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
 
           {steps.map((step, i) => (
-            <div key={step.num} className="relative flex flex-col items-center text-center group">
+            <div key={step.num} className="relative flex flex-col items-center text-center group min-w-[110px] flex-1">
               {/* Step circle */}
               <div
-                className="w-32 h-32 rounded-full bg-card border-2 border-border flex items-center justify-center mb-5 relative z-10 transition-transform duration-500 hover:scale-105"
+                className="w-20 h-20 md:w-32 md:h-32 rounded-full bg-card border-2 border-border flex items-center justify-center mb-3 md:mb-5 relative z-10 transition-transform duration-500 hover:scale-105"
                 style={{ animationDelay: `${i * 200}ms` }}
               >
-                <span className="text-4xl">{step.visual}</span>
+                <span className="text-2xl md:text-4xl">{step.visual}</span>
               </div>
 
               {/* Step number */}
@@ -92,7 +92,7 @@ const HowToUseSection = () => {
 
               {/* Arrow between steps (desktop) */}
               {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-14 -right-3 z-20 text-muted-foreground/30 text-2xl">
+                <div className="absolute top-8 md:top-14 -right-2 md:-right-3 z-20 text-muted-foreground/30 text-lg md:text-2xl">
                   →
                 </div>
               )}
