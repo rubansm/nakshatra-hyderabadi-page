@@ -144,11 +144,10 @@ const ProductSection = () => {
               </div>
 
               <a
-                data-product-cta
                 href="https://wa.me/919999999999"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center font-body font-semibold text-white px-6 py-2.5 rounded-full text-sm transition-opacity hover:opacity-90"
+                className="inline-flex items-center justify-center font-body font-semibold text-white px-6 py-2.5 rounded-full text-sm hover:opacity-90"
                 style={{ backgroundColor: "#FF8900" }}
               >
                 Add to Cart
