@@ -7,6 +7,7 @@ import ProcessSection from "@/components/ProcessSection";
 import ProductSection from "@/components/ProductSection";
 import FAQSection from "@/components/FAQSection";
 import FinalCTA from "@/components/FinalCTA";
+import FloatingCTA from "@/components/FloatingCTA";
 
 const Index = () => {
   return (
