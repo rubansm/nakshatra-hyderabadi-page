@@ -29,7 +29,7 @@ const HeroSection = () => {
         {/* Top: H1 */}
         <div className="max-w-[420px]">
           <h1
-            className="font-display font-bold text-[#FFB347] text-6xl leading-[1.05] mt-[24px]"
+            className="font-navbar font-bold text-[#FFB347] text-6xl leading-[1.05] mt-[24px]"
             style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}
           >
             Nanama's
