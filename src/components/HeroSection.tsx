@@ -1,4 +1,5 @@
 import { Shield, Leaf, Droplets, Truck } from "lucide-react";
+import FloatingCTA from "./FloatingCTA";
 
 const trustBadges = [
   { icon: Shield, label: "FSSAI Certified" },
@@ -40,15 +41,10 @@ const HeroSection = () => {
 
         {/* Bottom: CTA + Badges */}
         <div className="max-w-xl mx-auto text-center flex flex-col items-center gap-6">
-
-          <a
-            href="https://wa.me/919999999999?text=I%20want%20to%20order%20Nakshatra%20Chicken%20Pickle"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-[#FF8900] text-white font-body font-bold px-14 py-4 rounded-full text-base tracking-wide shadow-[0_4px_16px_rgba(255,137,0,0.4)] hover:scale-105 hover:shadow-[0_6px_24px_rgba(255,137,0,0.5)] transition-all duration-300"
-          >
-            Order Your Pack
-          </a>
+          {/* Placeholder to reserve space + the actual CTA lives here in hero state */}
+          <div id="hero-cta-placeholder" className="relative">
+            <FloatingCTA />
+          </div>
 
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
             {trustBadges.map(({ icon: Icon, label }) => (
