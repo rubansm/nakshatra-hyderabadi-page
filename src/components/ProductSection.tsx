@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
 
 type VariantKey = "250g" | "500g" | "1kg" | "more";
@@ -45,8 +45,32 @@ const ProductSection = () => {
   const [selected, setSelected] = useState<VariantKey>("500g");
   const [quantity, setQuantity] = useState(1);
   const [fade, setFade] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const hasSnapped = useRef(false);
 
   const current = variants[selected];
+
+  // Auto-scroll to center when section enters viewport
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasSnapped.current) {
+          hasSnapped.current = true;
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        if (!entry.isIntersecting) {
+          hasSnapped.current = false;
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const handleToggle = (key: VariantKey) => {
     if (key === selected) return;
@@ -59,7 +83,7 @@ const ProductSection = () => {
   };
 
   return (
-    <section id="pricing" className="bg-background py-10 md:py-14">
+    <section ref={sectionRef} id="pricing" className="bg-background py-10 md:py-14">
       <div className="container mx-auto px-4 flex flex-col items-center">
         {/* Toggle */}
         <div
