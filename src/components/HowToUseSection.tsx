@@ -66,7 +66,7 @@ const HowToUseSection = () => {
           <div className="hidden md:block absolute top-16 left-[16.67%] right-[16.67%] h-[2px] bg-gradient-to-r from-transparent via-border to-transparent" />
 
           {steps.map((step, i) => (
-            <div key={step.num} className="relative flex flex-col items-center text-center group">
+            <div key={step.num} className="relative flex flex-col items-center text-center group min-w-[110px] flex-1">
               {/* Step circle */}
               <div
                 className="w-32 h-32 rounded-full bg-card border-2 border-border flex items-center justify-center mb-5 relative z-10 transition-transform duration-500 hover:scale-105"
