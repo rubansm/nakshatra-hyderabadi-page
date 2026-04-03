@@ -1,16 +1,3 @@
-import { useState, useEffect } from "react";
-
-const pairingFoods = [
-  "Steamed Rice",
-  "Biryani",
-  "Jeera Rice",
-  "Roti",
-  "Dosa",
-  "Paratha",
-  "Idli",
-  "Chapati",
-];
-
 const steps = [
   {
     num: "01",
