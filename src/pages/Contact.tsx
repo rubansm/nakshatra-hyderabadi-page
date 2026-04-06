@@ -10,7 +10,7 @@ const Contact = () => {
     setSubmitted(true);
   };
 
-  const whatsappLink = `https://wa.me/919999999999?text=${encodeURIComponent(
+  const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
     `Hi, I have a query.\nName: ${form.name}\nPhone: ${form.phone}\nQuery: ${form.query}`
   )}`;
 
