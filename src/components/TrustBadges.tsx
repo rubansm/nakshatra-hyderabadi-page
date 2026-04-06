@@ -10,7 +10,7 @@ const trustBadges = [
 const TrustBadges = () => {
   return (
     <section className="bg-[hsl(40,30%,96%)] py-5 px-6 border-b border-muted-foreground/20">
-      <div className="max-w-sm mx-auto grid grid-cols-2 gap-x-6 gap-y-4 place-items-center">
+      <div className="max-w-sm md:max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-4 place-items-center">
         {trustBadges.map(({ icon: Icon, label }) => (
           <div
             key={label}
