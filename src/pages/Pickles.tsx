@@ -84,7 +84,7 @@ const Pickles = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <BackButton />
-      <div className="container mx-auto px-4 pt-24 pb-16">
+      <div className="container mx-auto px-4 pt-4 pb-16">
         {/* Non-Veg */}
         <h1 className="font-navbar text-2xl md:text-3xl font-bold text-foreground text-center mb-2">Our Pickles</h1>
         <p className="font-body text-muted-foreground text-center text-sm mb-8">Handmade in Hyderabad. No preservatives. Pure groundnut oil.</p>
