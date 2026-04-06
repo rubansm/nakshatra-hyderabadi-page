@@ -17,7 +17,7 @@ const Index = () => {
       <HowToUseSection />
       <ProductTruth />
       <SocialProof />
-      <ProcessSection />
+      
       <ProductSection />
       <FAQSection />
       <FinalCTA />
