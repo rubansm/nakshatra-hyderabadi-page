@@ -39,7 +39,7 @@ const vegPickles: Product[] = [
 const ProductCard = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
 
-  const whatsappLink = `https://wa.me/919999999999?text=${encodeURIComponent(
+  const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
     `Hi, I'd like to order ${quantity}x ${product.name} (${product.price} each)`
   )}`;
 

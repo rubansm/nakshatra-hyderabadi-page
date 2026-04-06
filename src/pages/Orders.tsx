@@ -10,7 +10,7 @@ const Orders = () => {
     setSubmitted(true);
   };
 
-  const whatsappLink = `https://wa.me/919999999999?text=${encodeURIComponent(
+  const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
     `Hi, I'd like to place an order.\nName: ${form.name}\nMobile: ${form.mobile}\nQuery: ${form.query}`
   )}`;
 

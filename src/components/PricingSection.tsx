@@ -71,7 +71,7 @@ const PricingSection = () => {
                 {plan.desc}
               </p>
               <a
-                href="https://wa.me/919999999999"
+                href="https://wa.me/919010291295"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`inline-block w-full font-body font-semibold px-6 py-3 rounded-md transition-opacity hover:opacity-90 ${
