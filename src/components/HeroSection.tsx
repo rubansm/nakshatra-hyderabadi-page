@@ -12,10 +12,17 @@ const HeroSection = () => {
     <section id="hero" className="relative min-h-screen flex flex-col">
       {/* Video Background */}
       <div className="absolute inset-0">
+        {/* Mobile GIF */}
         <img
           src="/hero-bg.gif"
           alt="Nakshatra Foods hero background"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover md:hidden"
+        />
+        {/* Desktop GIF */}
+        <img
+          src="/hero-bg-desktop.gif"
+          alt="Nakshatra Foods hero background"
+          className="w-full h-full object-cover hidden md:block"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-warm-brown/30 via-transparent to-warm-brown/40" />
       </div>
