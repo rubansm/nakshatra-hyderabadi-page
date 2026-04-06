@@ -83,6 +83,7 @@ const Pickles = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <BackButton />
       <div className="container mx-auto px-4 pt-24 pb-16">
         {/* Non-Veg */}
         <h1 className="font-navbar text-2xl md:text-3xl font-bold text-foreground text-center mb-2">Our Pickles</h1>

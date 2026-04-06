@@ -18,6 +18,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <BackButton />
       <div className="container mx-auto px-4 pt-24 pb-16 max-w-lg">
         <h1 className="font-navbar text-2xl md:text-3xl font-bold text-foreground text-center mb-2">Get in Touch</h1>
         <p className="font-body text-muted-foreground text-center text-sm mb-8">Questions, bulk orders, or just want to say hi. We're here.</p>
