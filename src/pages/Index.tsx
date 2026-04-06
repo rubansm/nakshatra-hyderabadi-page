@@ -5,6 +5,7 @@ import HowToUseSection from "@/components/HowToUseSection";
 import ProductTruth from "@/components/ProductTruth";
 import SocialProof from "@/components/SocialProof";
 
+import FounderSection from "@/components/FounderSection";
 import ProductSection from "@/components/ProductSection";
 import FAQSection from "@/components/FAQSection";
 import FinalCTA from "@/components/FinalCTA";
