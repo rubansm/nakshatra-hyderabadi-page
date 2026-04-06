@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import BackButton from "@/components/BackButton";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", phone: "", email: "", query: "" });

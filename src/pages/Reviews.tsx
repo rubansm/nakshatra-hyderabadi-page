@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import BackButton from "@/components/BackButton";
 import { Star } from "lucide-react";
 import { allReviews } from "@/data/reviews";
 

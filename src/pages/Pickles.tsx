@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import BackButton from "@/components/BackButton";
 
 interface Product {
   name: string;
