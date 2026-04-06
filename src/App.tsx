@@ -8,6 +8,7 @@ import Pickles from "./pages/Pickles.tsx";
 import Snacks from "./pages/Snacks.tsx";
 import Orders from "./pages/Orders.tsx";
 import Contact from "./pages/Contact.tsx";
+import Reviews from "./pages/Reviews.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
