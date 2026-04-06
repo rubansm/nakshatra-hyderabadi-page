@@ -4,25 +4,39 @@ const FounderSection = () => {
   return (
     <section className="bg-cream py-16 md:py-24">
       <div className="container mx-auto px-4 max-w-5xl">
+        {/* Header */}
+        <div className="text-center mb-10 md:mb-14">
+          <p className="font-body text-turmeric uppercase tracking-[0.2em] text-sm mb-3">
+            The Man Behind the Jar
+          </p>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground leading-tight">
+            Meet the Founder
+          </h2>
+        </div>
+
         <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
-          {/* Founder Image */}
-          <div className="w-64 md:w-80 flex-shrink-0">
-            <img
-              src={founderImg}
-              alt="Founder of Nakshatra Foods"
-              className="w-full h-auto rounded-2xl"
-            />
+          {/* Founder Image with frame and overlay */}
+          <div className="w-72 md:w-80 flex-shrink-0">
+            <div className="relative rounded-2xl overflow-hidden border-4 border-warm-brown/30 shadow-xl">
+              <img
+                src={founderImg}
+                alt="Wilson Indrapalli — Founder of Nakshatra Foods"
+                className="w-full h-auto block"
+              />
+              {/* Gradient overlay with name */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-16 pb-5 px-4 text-center">
+                <p className="font-display text-white text-xl md:text-2xl font-bold tracking-wide">
+                  Wilson Indrapalli
+                </p>
+                <p className="font-body text-white/70 text-sm uppercase tracking-[0.15em] mt-1">
+                  Founder
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Content */}
           <div className="text-center md:text-left">
-            <p className="font-body text-turmeric uppercase tracking-[0.2em] text-sm mb-3">
-              The Man Behind the Jar
-            </p>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight">
-              Meet the Founder
-            </h2>
-
             <div className="space-y-5 font-body text-muted-foreground text-lg leading-relaxed">
               <p>
                 What started as a mother's love packed into jars for her son
