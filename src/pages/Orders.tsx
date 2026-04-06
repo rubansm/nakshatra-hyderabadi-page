@@ -11,7 +11,7 @@ const Orders = () => {
   };
 
   const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
-    `Hi, I'd like to place an order.\nName: ${form.name}\nMobile: ${form.mobile}\nQuery: ${form.query}`
+    `Hi, Nakshatra foods, May I have your time !!! I'd like to place an order.\nName: ${form.name}\nMobile: ${form.mobile}\nQuery: ${form.query}`
   )}`;
 
   return (

@@ -11,7 +11,7 @@ const Contact = () => {
   };
 
   const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
-    `Hi, I have a query.\nName: ${form.name}\nPhone: ${form.phone}\nQuery: ${form.query}`
+    `Hi, Nakshatra foods, May I have your time !!! I have a query.\nName: ${form.name}\nPhone: ${form.phone}\nQuery: ${form.query}`
   )}`;
 
   return (
