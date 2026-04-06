@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import TrustBadges from "@/components/TrustBadges";
 import HowToUseSection from "@/components/HowToUseSection";
 import ProductTruth from "@/components/ProductTruth";
 import SocialProof from "@/components/SocialProof";
@@ -14,6 +15,7 @@ const Index = () => {
     <main className="font-body">
       <Navbar />
       <HeroSection />
+      <TrustBadges />
       <HowToUseSection />
       <ProductTruth />
       <SocialProof />
