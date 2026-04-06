@@ -19,6 +19,7 @@ const Index = () => {
       <TrustBadges />
       <HowToUseSection />
       <ProductTruth />
+      <FounderSection />
       <SocialProof />
       
       <ProductSection />
