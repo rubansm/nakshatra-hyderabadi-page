@@ -27,16 +27,7 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col justify-between pt-24 pb-10 px-6 md:px-12">
         {/* Top: H1 */}
-        <div className="max-w-[420px]">
-          <h1
-            className="font-navbar font-bold text-[#FFB347] text-6xl leading-[1.05] mt-[24px]"
-            style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}
-          >
-            Nanama's
-            <br />
-            Chicken Pickle
-          </h1>
-        </div>
+        <div className="max-w-[420px]" />
 
         {/* Bottom: CTA + Badges */}
         <div className="max-w-xl mx-auto text-center flex flex-col items-center gap-6">
