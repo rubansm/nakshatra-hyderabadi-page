@@ -12,10 +12,13 @@ const HeroSection = () => {
     <section id="hero" className="relative min-h-screen flex flex-col">
       {/* Video Background */}
       <div className="absolute inset-0">
-        {/* Mobile GIF */}
-        <img
-          src="/hero-bg.gif"
-          alt="Nakshatra Foods hero background"
+        {/* Mobile Video */}
+        <video
+          src="/hero-bg-mobile.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
           className="w-full h-full object-cover md:hidden"
         />
         {/* Desktop GIF */}
