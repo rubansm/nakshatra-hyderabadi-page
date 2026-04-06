@@ -21,10 +21,13 @@ const HeroSection = () => {
           playsInline
           className="w-full h-full object-cover md:hidden"
         />
-        {/* Desktop GIF */}
-        <img
-          src="/hero-bg-desktop.gif"
-          alt="Nakshatra Foods hero background"
+        {/* Desktop Video */}
+        <video
+          src="/hero-bg-desktop.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
           className="w-full h-full object-cover hidden md:block"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-warm-brown/30 via-transparent to-warm-brown/40" />
