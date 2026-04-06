@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -15,6 +18,31 @@ const Navbar = () => {
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, [menuOpen]);
+
+  const menuItems = [
+    { label: "Our Story", path: "/#story" },
+    { label: "Pickles", path: "/pickles" },
+    { label: "Snacks", path: "/snacks" },
+    { label: "Abroad Orders", path: "/orders" },
+    { label: "Contact Us", path: "/contact" },
+  ];
+
+  const handleNavClick = (path: string) => {
+    setMenuOpen(false);
+    if (path === "/#story") {
+      if (location.pathname === "/") {
+        document.getElementById("story")?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        navigate("/");
+        setTimeout(() => {
+          document.getElementById("story")?.scrollIntoView({ behavior: "smooth" });
+        }, 300);
+      }
+    } else {
+      navigate(path);
+      window.scrollTo(0, 0);
+    }
+  };
 
   return (
     <nav ref={navRef} className="fixed top-6 left-4 right-4 z-50">
@@ -36,11 +64,10 @@ const Navbar = () => {
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
 
-        <a href="/" className="font-navbar text-black text-lg tracking-[0.2em] uppercase font-bold hover:text-black/80 transition-colors">
+        <button onClick={() => { navigate("/"); window.scrollTo(0, 0); }} className="font-navbar text-black text-lg tracking-[0.2em] uppercase font-bold hover:text-black/80 transition-colors">
           Nakshatra
-        </a>
+        </button>
 
-        {/* Spacer to keep Nakshatra centered */}
         <div className="w-[18px]" />
       </div>
 
@@ -55,21 +82,14 @@ const Navbar = () => {
             boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
           }}
         >
-          {[
-            { label: "Our Story", href: "#story" },
-            { label: "Pickles", href: "#pickle" },
-            { label: "Snacks", href: "#snacks" },
-            { label: "Abroad Orders", href: "#orders" },
-            { label: "Contact Us", href: "#contact" },
-          ].map((item) => (
-            <a
+          {menuItems.map((item) => (
+            <button
               key={item.label}
-              href={item.href}
-              onClick={() => setMenuOpen(false)}
-              className="font-body text-black/80 text-xs tracking-[0.15em] uppercase hover:text-black transition-colors py-1"
+              onClick={() => handleNavClick(item.path)}
+              className="font-body text-black/80 text-xs tracking-[0.15em] uppercase hover:text-black transition-colors py-1 text-left"
             >
               {item.label}
-            </a>
+            </button>
           ))}
         </div>
       )}
