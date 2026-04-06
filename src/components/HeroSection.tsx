@@ -12,15 +12,11 @@ const HeroSection = () => {
     <section id="hero" className="relative min-h-screen flex flex-col">
       {/* Video Background */}
       <div className="absolute inset-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
+        <img
+          src="/hero-bg.gif"
+          alt="Nakshatra Foods hero background"
           className="w-full h-full object-cover"
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-warm-brown/30 via-transparent to-warm-brown/40" />
       </div>
 
