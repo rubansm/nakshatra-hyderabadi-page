@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import BackButton from "@/components/BackButton";
 
 const Orders = () => {
   const [form, setForm] = useState({ name: "", mobile: "", email: "", query: "" });
@@ -17,6 +18,7 @@ const Orders = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <BackButton />
       <div className="container mx-auto px-4 pt-24 pb-16 max-w-lg">
         <h1 className="font-navbar text-2xl md:text-3xl font-bold text-foreground text-center mb-2">Place Your Order</h1>
         <p className="font-body text-muted-foreground text-center text-sm mb-8">Tell us what you need. We'll get back to you fast.</p>

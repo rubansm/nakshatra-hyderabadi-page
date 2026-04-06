@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import BackButton from "@/components/BackButton";
 
 interface Snack {
   name: string;
@@ -65,6 +66,7 @@ const Snacks = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <BackButton />
       <div className="container mx-auto px-4 pt-24 pb-16">
         <h1 className="font-navbar text-2xl md:text-3xl font-bold text-foreground text-center mb-2">Our Snacks</h1>
         <p className="font-body text-muted-foreground text-center text-sm mb-8">Handmade, traditional, no shortcuts. Straight from Hyderabad kitchens.</p>
