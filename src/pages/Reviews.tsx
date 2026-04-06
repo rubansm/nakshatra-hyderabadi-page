@@ -8,7 +8,7 @@ const Reviews = () => {
     <main className="font-body">
       <Navbar />
       <BackButton />
-      <section className="bg-background min-h-screen pt-4 pb-16">
+      <section className="bg-background min-h-screen pt-24 pb-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center gap-2 mb-3">
             <svg viewBox="0 0 24 24" className="w-5 h-5" aria-hidden="true">
