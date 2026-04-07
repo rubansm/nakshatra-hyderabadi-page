@@ -22,6 +22,7 @@ const Navbar = () => {
   }, [menuOpen]);
 
   const menuItems = [
+    { label: "Home", path: "/" },
     { label: "Our Story", path: "/#story" },
     { label: "Pickles", path: "/pickles" },
     { label: "Snacks", path: "/snacks" },
