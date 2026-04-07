@@ -13,24 +13,27 @@ interface Variant {
   isCustom?: boolean;
 }
 
-const variants: Record<VariantKey, Variant> = {
+const variants: Record<VariantKey, Variant & { priceNum?: number }> = {
   "250g": {
     title: "The Taster Jar",
     tagline: "A bold first bite.",
     description: "Enough for a week of fiery, flavour-packed meals. Pure groundnut oil, sun-dried spices.",
     price: "₹400",
+    priceNum: 400,
   },
   "500g": {
     title: "The Family Jar",
     tagline: "The one everyone fights over.",
     description: "Two weeks of rich, homestyle chicken pickle. Our bestseller for a reason.",
     price: "₹600",
+    priceNum: 600,
   },
   "1kg": {
     title: "The Bulk Jar",
     tagline: "For the ones who never run out.",
     description: "A month of deep, slow-cooked flavour. Best value, zero compromise.",
     price: "₹1000",
+    priceNum: 1000,
   },
   more: {
     title: "Bulk & Custom",
