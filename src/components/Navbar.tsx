@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useCart } from "@/context/CartContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
