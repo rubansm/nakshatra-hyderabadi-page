@@ -26,10 +26,13 @@ const snacks: Snack[] = [
 
 const SnackCard = ({ snack }: { snack: Snack }) => {
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
 
-  const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
-    `Hi, Nakshatra foods, May I have your time !!! I'd like to order ${quantity}x ${snack.name} (${snack.price} each)`
-  )}`;
+  const handleAddToCart = () => {
+    addToCart({ name: snack.name, price: snack.price, priceNum: snack.priceNum }, quantity);
+    toast.success(`${quantity}x ${snack.name} added to cart`);
+    setQuantity(1);
+  };
 
   return (
     <div className="rounded-2xl border border-border bg-card p-4 flex flex-col">
@@ -50,15 +53,13 @@ const SnackCard = ({ snack }: { snack: Snack }) => {
             <Plus size={12} />
           </button>
         </div>
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={handleAddToCart}
           className="flex-1 inline-flex items-center justify-center font-body font-semibold text-white px-4 py-2 rounded-full text-xs hover:opacity-90 transition-opacity"
           style={{ backgroundColor: "#FF8900" }}
         >
           Add to Cart
-        </a>
+        </button>
       </div>
     </div>
   );
