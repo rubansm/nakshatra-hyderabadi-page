@@ -8,6 +8,7 @@ const Navbar = () => {
   const navRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { totalItems } = useCart();
 
   useEffect(() => {
     if (!menuOpen) return;
