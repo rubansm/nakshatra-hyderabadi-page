@@ -11,6 +11,7 @@ import Orders from "./pages/Orders.tsx";
 import Contact from "./pages/Contact.tsx";
 import Reviews from "./pages/Reviews.tsx";
 import Billing from "./pages/Billing.tsx";
+import Checkout from "./pages/Checkout.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/billing" element={<Billing />} />
+            <Route path="/checkout" element={<Checkout />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -1,4 +1,5 @@
 import { Plus, Minus, Trash2, Info, ChevronDown, ShoppingBag } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import BackButton from "@/components/BackButton";
 import { useCart } from "@/context/CartContext";
@@ -12,6 +13,7 @@ import {
 } from "@/components/ui/drawer";
 
 const Billing = () => {
+  const navigate = useNavigate();
   const { items, updateQuantity, removeFromCart, clearCart, totalPrice } = useCart();
   const [breakdownOpen, setBreakdownOpen] = useState(false);
 
@@ -118,15 +120,13 @@ const Billing = () => {
             </div>
 
             {/* Checkout button */}
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => navigate("/checkout")}
               className="font-body font-semibold text-white px-8 py-3 rounded-full text-sm hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "#FF8900" }}
             >
               Check out
-            </a>
+            </button>
           </div>
         </div>
       )}
