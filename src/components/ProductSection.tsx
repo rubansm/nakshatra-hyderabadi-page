@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { toast } from "sonner";
 
 type VariantKey = "250g" | "500g" | "1kg" | "more";
 
@@ -11,24 +13,27 @@ interface Variant {
   isCustom?: boolean;
 }
 
-const variants: Record<VariantKey, Variant> = {
+const variants: Record<VariantKey, Variant & { priceNum?: number }> = {
   "250g": {
     title: "The Taster Jar",
     tagline: "A bold first bite.",
     description: "Enough for a week of fiery, flavour-packed meals. Pure groundnut oil, sun-dried spices.",
     price: "₹400",
+    priceNum: 400,
   },
   "500g": {
     title: "The Family Jar",
     tagline: "The one everyone fights over.",
     description: "Two weeks of rich, homestyle chicken pickle. Our bestseller for a reason.",
     price: "₹600",
+    priceNum: 600,
   },
   "1kg": {
     title: "The Bulk Jar",
     tagline: "For the ones who never run out.",
     description: "A month of deep, slow-cooked flavour. Best value, zero compromise.",
     price: "₹1000",
+    priceNum: 1000,
   },
   more: {
     title: "Bulk & Custom",
@@ -42,6 +47,7 @@ const variants: Record<VariantKey, Variant> = {
 const toggleOptions: VariantKey[] = ["250g", "500g", "1kg", "more"];
 
 const ProductSection = () => {
+  const { addToCart } = useCart();
   const [selected, setSelected] = useState<VariantKey>("500g");
   const [quantity, setQuantity] = useState(1);
   const [fade, setFade] = useState(false);
@@ -167,15 +173,19 @@ const ProductSection = () => {
                 </button>
               </div>
 
-              <a
-                href="https://wa.me/919010291295?text=Hi%2C%20Nakshatra%20foods%2C%20May%20I%20have%20your%20time%20%21%21%21"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => {
+                  if (current.priceNum) {
+                    addToCart({ name: `Chicken Pickle (${selected})`, price: current.price, priceNum: current.priceNum }, quantity);
+                    toast.success(`${quantity}x Chicken Pickle (${selected}) added to cart`);
+                    setQuantity(1);
+                  }
+                }}
                 className="inline-flex items-center justify-center font-body font-semibold text-white px-6 py-2.5 rounded-full text-sm hover:opacity-90"
                 style={{ backgroundColor: "#FF8900" }}
               >
                 Add to Cart
-              </a>
+              </button>
             </div>
           ) : (
             <a
