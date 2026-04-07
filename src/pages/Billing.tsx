@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/drawer";
 
 const Billing = () => {
+  const navigate = useNavigate();
   const { items, updateQuantity, removeFromCart, clearCart, totalPrice } = useCart();
   const [breakdownOpen, setBreakdownOpen] = useState(false);
 
