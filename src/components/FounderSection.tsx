@@ -17,7 +17,7 @@ const FounderSection = () => {
         <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
           {/* Founder Image with frame and overlay */}
           <div className="w-72 md:w-80 flex-shrink-0">
-            <div className="relative rounded-2xl overflow-hidden border-4 border-warm-brown/30 shadow-xl">
+            <div className="relative rounded-2xl overflow-hidden <div className="relative rounded-2xl overflow-hidden border-4 border-turmeric shadow-xl">">
               <img
                 src={founderImg}
                 alt="Wilson Indrapalli — Founder of Nakshatra Foods"
