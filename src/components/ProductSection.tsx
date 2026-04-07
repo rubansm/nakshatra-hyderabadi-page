@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { toast } from "sonner";
 
 type VariantKey = "250g" | "500g" | "1kg" | "more";
 
