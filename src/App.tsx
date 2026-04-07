@@ -11,6 +11,7 @@ import Orders from "./pages/Orders.tsx";
 import Contact from "./pages/Contact.tsx";
 import Reviews from "./pages/Reviews.tsx";
 import Billing from "./pages/Billing.tsx";
+import Checkout from "./pages/Checkout.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
