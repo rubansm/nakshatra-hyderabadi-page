@@ -3,7 +3,7 @@ import ingredientsHero from "@/assets/ingredients-hero.png";
 const ProductTruth = () => {
   return (
     <section className="bg-foreground">
-      <div className="pt-10 md:pt-16 pb-4 md:pb-6 px-4 text-center">
+      <div className="pt-10 md:pt-16 pb-4 md:pb-6 px-4 text-center bg-[sidebar-primary-foreground]">
         <p className="font-body text-turmeric uppercase tracking-[0.25em] text-xs md:text-sm mb-2">
           What Goes In
         </p>
