@@ -44,6 +44,7 @@ const variants: Record<VariantKey, Variant> = {
 const toggleOptions: VariantKey[] = ["250g", "500g", "1kg", "more"];
 
 const ProductSection = () => {
+  const { addToCart } = useCart();
   const [selected, setSelected] = useState<VariantKey>("500g");
   const [quantity, setQuantity] = useState(1);
   const [fade, setFade] = useState(false);
