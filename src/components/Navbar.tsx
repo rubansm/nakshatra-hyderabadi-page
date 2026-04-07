@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useCart } from "@/context/CartContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { totalItems } = useCart();
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -68,7 +70,21 @@ const Navbar = () => {
           Nakshatra
         </button>
 
-        <div className="w-[18px]" />
+        <button
+          onClick={() => { navigate("/billing"); window.scrollTo(0, 0); }}
+          className="relative text-black/70 hover:text-black transition-colors"
+          aria-label="Cart"
+        >
+          <ShoppingCart size={18} />
+          {totalItems > 0 && (
+            <span
+              className="absolute -top-2 -right-2 w-4 h-4 rounded-full flex items-center justify-center text-white text-[9px] font-bold"
+              style={{ backgroundColor: "#FF8900" }}
+            >
+              {totalItems > 99 ? "99+" : totalItems}
+            </span>
+          )}
+        </button>
       </div>
 
       {menuOpen && (

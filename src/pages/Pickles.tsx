@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import BackButton from "@/components/BackButton";
+import { useCart } from "@/context/CartContext";
+import { toast } from "sonner";
 
 interface Product {
   name: string;
@@ -39,10 +41,14 @@ const vegPickles: Product[] = [
 
 const ProductCard = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
 
-  const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
-    `Hi, Nakshatra foods, May I have your time !!! I'd like to order ${quantity}x ${product.name} (${product.price} each)`
-  )}`;
+  const handleAddToCart = () => {
+    if (!product.priceNum) return;
+    addToCart({ name: product.name, price: product.price, priceNum: product.priceNum }, quantity);
+    toast.success(`${quantity}x ${product.name} added to cart`);
+    setQuantity(1);
+  };
 
   return (
     <div className="rounded-2xl border border-border bg-card p-4 flex flex-col">
@@ -64,15 +70,13 @@ const ProductCard = ({ product }: { product: Product }) => {
               <Plus size={12} />
             </button>
           </div>
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={handleAddToCart}
             className="flex-1 inline-flex items-center justify-center font-body font-semibold text-white px-4 py-2 rounded-full text-xs hover:opacity-90 transition-opacity"
             style={{ backgroundColor: "#FF8900" }}
           >
             Add to Cart
-          </a>
+          </button>
         </div>
       )}
     </div>
