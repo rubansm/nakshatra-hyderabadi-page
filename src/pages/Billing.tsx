@@ -1,4 +1,5 @@
 import { Plus, Minus, Trash2, Info, ChevronDown, ShoppingBag } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import BackButton from "@/components/BackButton";
 import { useCart } from "@/context/CartContext";
