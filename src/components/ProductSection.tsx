@@ -62,6 +62,14 @@ const ProductSection = () => {
 
   const current = variants[selected];
 
+  // Preload all variant images on mount
+  useEffect(() => {
+    Object.values(variantImages).forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   // Auto-scroll to center when section enters viewport
   useEffect(() => {
     const el = sectionRef.current;
