@@ -6,27 +6,37 @@ const Contact = () => {
   const [form, setForm] = useState({ name: "", phone: "", email: "", query: "" });
   const [submitted, setSubmitted] = useState(false);
 
+  const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
+    `Hi, Nakshatra foods, May I have your time !!! I have a query.\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nQuery: ${form.query}`
+  )}`;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    window.open(whatsappLink, "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };
-
-  const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
-    `Hi, Nakshatra foods, May I have your time !!! I have a query.\nName: ${form.name}\nPhone: ${form.phone}\nQuery: ${form.query}`
-  )}`;
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <BackButton />
       <div className="container mx-auto px-4 pt-24 pb-16 max-w-lg">
-        <h1 className="font-navbar text-2xl md:text-3xl font-bold text-foreground text-center mb-2">Get in Touch</h1>
+        <h1 className="font-body text-2xl md:text-3xl font-bold text-foreground text-center mb-2">Get in Touch</h1>
         <p className="font-body text-muted-foreground text-center text-sm mb-8">Questions, bulk orders, or just want to say hi. We're here.</p>
 
         {submitted ? (
           <div className="text-center py-12">
-            <p className="font-navbar text-xl font-bold text-foreground mb-2">Message sent!</p>
-            <p className="font-body text-muted-foreground text-sm">We'll get back to you soon.</p>
+            <p className="font-body text-xl font-bold text-foreground mb-2">Message sent!</p>
+            <p className="font-body text-muted-foreground text-sm">We've opened WhatsApp with your message. If it didn't open, use the button below.</p>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center justify-center gap-2 font-body font-semibold text-white px-6 py-3 rounded-md text-sm hover:opacity-90 transition-opacity"
+              style={{ backgroundColor: "#25D366" }}
+            >
+              Open WhatsApp
+            </a>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -36,7 +46,7 @@ const Contact = () => {
               placeholder="Your Name"
               value={form.name}
               onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-              className="w-full rounded-xl border border-border bg-card px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              className="w-full rounded-md border border-border bg-card px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
             <input
               required
@@ -45,7 +55,7 @@ const Contact = () => {
               placeholder="Phone Number"
               value={form.phone}
               onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-              className="w-full rounded-xl border border-border bg-card px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              className="w-full rounded-md border border-border bg-card px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
             <input
               required
@@ -54,7 +64,7 @@ const Contact = () => {
               placeholder="Email ID"
               value={form.email}
               onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-              className="w-full rounded-xl border border-border bg-card px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              className="w-full rounded-md border border-border bg-card px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
             <textarea
               placeholder="Your query or message..."
@@ -62,12 +72,12 @@ const Contact = () => {
               value={form.query}
               onChange={e => setForm(f => ({ ...f, query: e.target.value }))}
               rows={4}
-              className="w-full rounded-xl border border-border bg-card px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+              className="w-full rounded-md border border-border bg-card px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
             />
 
             <button
               type="submit"
-              className="w-full font-body font-semibold text-white px-6 py-3 rounded-full text-sm hover:opacity-90 transition-opacity"
+              className="w-full font-body font-semibold text-white px-6 py-3 rounded-md text-sm hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "#FF8900" }}
             >
               Send Message
@@ -77,7 +87,7 @@ const Contact = () => {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 font-body font-semibold text-white px-6 py-3 rounded-full text-sm hover:opacity-90 transition-opacity"
+              className="w-full inline-flex items-center justify-center gap-2 font-body font-semibold text-white px-6 py-3 rounded-md text-sm hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "#25D366" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -88,10 +98,19 @@ const Contact = () => {
           </form>
         )}
 
-        {/* Map Placeholder */}
-        <div className="mt-8 w-full aspect-video rounded-2xl bg-muted border border-border flex items-center justify-center">
-          <span className="font-body text-muted-foreground text-xs uppercase tracking-widest">Location Map</span>
+        {/* Location Map */}
+        <div className="mt-8 w-full rounded-lg overflow-hidden border border-border" style={{ aspectRatio: "16/9" }}>
+          <iframe
+            title="Nakshatra Foods Location"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=80.2007%2C12.9927%2C80.3407%2C13.1327&layer=mapnik&marker=13.0627%2C80.2707"
+            width="100%"
+            height="100%"
+            style={{ border: 0, display: "block" }}
+            loading="lazy"
+            allowFullScreen
+          />
         </div>
+        <p className="mt-2 font-body text-xs text-muted-foreground text-center">Chennai, Tamil Nadu — Our delivery hub</p>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Plus, Minus, Trash2, Info, ChevronDown, ShoppingBag } from "lucide-react";
+import { Plus, Minus, Trash2, Info, ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import BackButton from "@/components/BackButton";
@@ -35,7 +35,7 @@ const Billing = () => {
       <Navbar />
       <BackButton />
       <div className="container mx-auto px-4 pt-24 max-w-2xl">
-        <h1 className="font-navbar text-2xl md:text-3xl font-bold text-foreground text-left mb-6">
+        <h1 className="font-body text-2xl md:text-3xl font-bold text-foreground text-left mb-6">
           Cart
         </h1>
 
@@ -58,7 +58,7 @@ const Billing = () => {
                 <div key={item.name} className="py-4 flex gap-4">
                   {/* Left: Price & Name */}
                   <div className="flex-1 min-w-0">
-                    <p className="font-navbar text-lg font-bold" style={{ color: "#FF8900" }}>
+                    <p className="font-body text-lg font-bold" style={{ color: "#FF8900" }}>
                       {item.price}
                     </p>
                     <h3 className="font-body text-sm text-foreground mt-1 truncate">
@@ -70,7 +70,7 @@ const Billing = () => {
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={() => removeFromCart(item.name)}
-                      className="w-9 h-9 rounded-full border border-foreground/20 flex items-center justify-center text-foreground/60 hover:text-destructive hover:border-destructive transition-colors"
+                      className="w-9 h-9 rounded-md border border-foreground/20 flex items-center justify-center text-foreground/60 hover:text-destructive hover:border-destructive transition-colors"
                     >
                       <Trash2 size={16} />
                     </button>
@@ -79,7 +79,7 @@ const Billing = () => {
                     </span>
                     <button
                       onClick={() => updateQuantity(item.name, item.quantity + 1)}
-                      className="w-9 h-9 rounded-full border border-foreground/20 flex items-center justify-center text-foreground/60 hover:text-foreground transition-colors"
+                      className="w-9 h-9 rounded-md border border-foreground/20 flex items-center justify-center text-foreground/60 hover:text-foreground transition-colors"
                     >
                       <Plus size={16} />
                     </button>
@@ -91,7 +91,7 @@ const Billing = () => {
             {/* Clear cart */}
             <button
               onClick={clearCart}
-              className="mt-4 font-body text-sm text-muted-foreground border border-border rounded-full px-5 py-2 hover:text-foreground transition-colors"
+              className="mt-4 font-body text-sm text-muted-foreground border border-border rounded-md px-5 py-2 hover:text-foreground transition-colors"
             >
               Empty cart
             </button>
@@ -107,7 +107,7 @@ const Billing = () => {
             <div>
               <p className="font-body text-xs text-muted-foreground">Subtotal</p>
               <div className="flex items-center gap-1.5">
-                <span className="font-navbar text-xl font-bold text-foreground">
+                <span className="font-body text-xl font-bold text-foreground">
                   ₹{subtotal}
                 </span>
                 <button
@@ -122,7 +122,7 @@ const Billing = () => {
             {/* Checkout button */}
             <button
               onClick={() => navigate("/checkout")}
-              className="font-body font-semibold text-white px-8 py-3 rounded-full text-sm hover:opacity-90 transition-opacity"
+              className="font-body font-semibold text-white px-8 py-3 rounded-md text-sm hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "#FF8900" }}
             >
               Check out
@@ -135,7 +135,7 @@ const Billing = () => {
       <Drawer open={breakdownOpen} onOpenChange={setBreakdownOpen}>
         <DrawerContent className="max-h-[50vh]">
           <DrawerHeader className="text-left">
-            <DrawerTitle className="font-navbar text-lg font-bold">Order Summary</DrawerTitle>
+            <DrawerTitle className="font-body text-lg font-bold">Order Summary</DrawerTitle>
           </DrawerHeader>
           <div className="px-4 pb-6 space-y-4">
             {/* Items breakdown */}
@@ -171,7 +171,7 @@ const Billing = () => {
             </div>
 
             <div className="border-t border-border pt-3">
-              <div className="flex justify-between font-navbar text-base font-bold">
+              <div className="flex justify-between font-body text-base font-bold">
                 <span>Subtotal</span>
                 <span style={{ color: "#FF8900" }}>₹{subtotal}</span>
               </div>

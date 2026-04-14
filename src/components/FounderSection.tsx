@@ -2,12 +2,12 @@ import founderImg from "@/assets/founder.png";
 
 const FounderSection = () => {
   return (
-    <section className="bg-cream py-16 md:py-24">
+    <section className="bg-cream py-10 md:py-14">
       <div className="container mx-auto px-4 max-w-5xl">
         {/* Header */}
         <div className="text-center mb-10 md:mb-14">
           <p className="font-body text-turmeric uppercase tracking-[0.2em] text-sm mb-3">
-            The Man Behind the Jar
+            The Man Behind the Pack
           </p>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground leading-tight">
             Meet the Founder
@@ -17,7 +17,7 @@ const FounderSection = () => {
         <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
           {/* Founder Image with frame and overlay */}
           <div className="w-72 md:w-80 flex-shrink-0">
-            <div className="relative rounded-2xl overflow-hidden border-4 border-turmeric shadow-xl">
+            <div className="relative rounded-lg overflow-hidden border-4 border-turmeric shadow-xl">
               <img
                 src={founderImg}
                 alt="Wilson Indrapalli — Founder of Nakshatra Foods"
@@ -39,7 +39,7 @@ const FounderSection = () => {
           <div className="text-center md:text-left">
             <div className="space-y-5 font-body text-muted-foreground text-lg leading-relaxed">
               <p>
-                What started as a mother's love packed into jars for her son
+                What started as a mother's love packed into pouches for her son
                 became a mission to bring authentic Hyderabadi flavours to every
                 home far from home. Our founder grew up watching his mother
                 slow-cook chicken pickle in their Charminar kitchen, learning

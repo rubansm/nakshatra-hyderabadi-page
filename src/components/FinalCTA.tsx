@@ -1,6 +1,6 @@
 const FinalCTA = () => {
   return (
-    <section className="bg-warm-brown py-16 md:py-24">
+    <section id="final-cta" className="bg-warm-brown py-16 md:py-24">
       <div className="container mx-auto px-4 text-center max-w-2xl">
         <h2 className="font-display text-3xl md:text-4xl font-bold text-cream mb-4">
           Ready to Taste Hyderabad
@@ -8,7 +8,7 @@ const FinalCTA = () => {
           <span className="text-turmeric">in Chennai?</span>
         </h2>
         <p className="font-body text-cream/70 text-lg mb-8 max-w-md mx-auto">
-          Order today and get your jar delivered tomorrow. No minimum order.
+          Order today and get your pack delivered tomorrow. No minimum order.
           Free delivery across Chennai.
         </p>
         <a
@@ -17,7 +17,7 @@ const FinalCTA = () => {
           rel="noopener noreferrer"
           className="inline-block bg-turmeric text-warm-brown font-body font-bold px-10 py-4 rounded-md text-lg hover:opacity-90 transition-opacity"
         >
-          Order on WhatsApp
+          Contact us on WhatsApp
         </a>
         <p className="font-body text-cream/40 text-sm mt-6">
           © {new Date().getFullYear()} Nakshatra Pickle. Made with ❤️ in Chennai.

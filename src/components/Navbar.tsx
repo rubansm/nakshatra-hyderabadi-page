@@ -43,14 +43,14 @@ const Navbar = () => {
       }
     } else {
       navigate(path);
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   return (
     <nav ref={navRef} className="fixed top-6 left-4 right-4 z-50">
       <div
-        className="max-w-lg mx-auto rounded-full px-6 h-12 flex items-center justify-between"
+        className="max-w-lg mx-auto rounded-lg px-6 h-12 flex items-center justify-between"
         style={{
           background: "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(133,53,55,0.12))",
           backdropFilter: "blur(12px)",
@@ -67,12 +67,12 @@ const Navbar = () => {
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
 
-        <button onClick={() => { navigate("/"); window.scrollTo(0, 0); }} className="font-navbar text-black text-lg tracking-[0.2em] uppercase font-bold hover:text-black/80 transition-colors">
-          Nakshatra
+        <button onClick={() => { navigate("/"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:opacity-80 transition-opacity">
+          <img src="/nakshatra-logo.png" alt="Nakshatra" className="h-7" />
         </button>
 
         <button
-          onClick={() => { navigate("/billing"); window.scrollTo(0, 0); }}
+          onClick={() => { navigate("/billing"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
           className="relative text-black/70 hover:text-black transition-colors"
           aria-label="Cart"
         >
@@ -90,7 +90,7 @@ const Navbar = () => {
 
       {menuOpen && (
         <div
-          className="max-w-lg mx-auto mt-2 rounded-2xl px-6 py-4 flex flex-col gap-3"
+          className="max-w-lg mx-auto mt-2 rounded-lg px-6 py-4 flex flex-col gap-3"
           style={{
             background: "linear-gradient(135deg, rgba(255,255,255,0.12), rgba(133,53,55,0.15))",
             backdropFilter: "blur(16px)",

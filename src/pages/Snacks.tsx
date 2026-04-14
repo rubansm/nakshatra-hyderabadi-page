@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import BackButton from "@/components/BackButton";
 import { useCart } from "@/context/CartContext";
 import { toast } from "sonner";
+import snackImg from "@/assets/process-pickle.jpg";
 
 interface Snack {
   name: string;
@@ -29,33 +30,33 @@ const SnackCard = ({ snack }: { snack: Snack }) => {
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
-    addToCart({ name: snack.name, price: snack.price, priceNum: snack.priceNum }, quantity);
+    addToCart({ name: snack.name, price: snack.price, priceNum: snack.priceNum, image: snackImg }, quantity);
     toast.success(`${quantity}x ${snack.name} added to cart`);
     setQuantity(1);
   };
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-4 flex flex-col">
-      <div className="w-full aspect-[4/3] rounded-xl bg-muted flex items-center justify-center mb-3">
-        <span className="font-body text-muted-foreground text-xs uppercase tracking-widest">Product Image</span>
+    <div className="rounded-lg border border-border bg-card p-4 flex flex-col">
+      <div className="w-full aspect-[4/3] rounded-md overflow-hidden mb-3">
+        <img src={snackImg} alt={snack.name} className="w-full h-full object-cover" />
       </div>
-      <h3 className="font-navbar text-base font-bold text-foreground">{snack.name}</h3>
+      <h3 className="font-body text-base font-bold text-foreground">{snack.name}</h3>
       <p className="font-body text-muted-foreground text-xs mt-1 leading-relaxed flex-1">{snack.description}</p>
-      <p className="font-navbar text-lg font-bold mt-2" style={{ color: "#FF8900" }}>{snack.price}</p>
+      <p className="font-body text-lg font-bold mt-2" style={{ color: "#FF8900" }}>{snack.price}</p>
       
       <div className="flex items-center gap-3 mt-3">
-        <div className="flex items-center gap-1.5 border border-border rounded-full px-2 py-1">
-          <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="w-6 h-6 rounded-full flex items-center justify-center text-foreground/70 hover:text-foreground">
+        <div className="flex items-center gap-1.5 border border-border rounded-md px-2 py-1">
+          <button onClick={() => setQuantity(q => Math.max(1, q - 1))} className="w-6 h-6 flex items-center justify-center text-foreground/70 hover:text-foreground">
             <Minus size={12} />
           </button>
           <span className="font-body font-semibold text-foreground w-5 text-center text-xs">{quantity}</span>
-          <button onClick={() => setQuantity(q => q + 1)} className="w-6 h-6 rounded-full flex items-center justify-center text-foreground/70 hover:text-foreground">
+          <button onClick={() => setQuantity(q => q + 1)} className="w-6 h-6 flex items-center justify-center text-foreground/70 hover:text-foreground">
             <Plus size={12} />
           </button>
         </div>
         <button
           onClick={handleAddToCart}
-          className="flex-1 inline-flex items-center justify-center font-body font-semibold text-white px-4 py-2 rounded-full text-xs hover:opacity-90 transition-opacity"
+          className="flex-1 inline-flex items-center justify-center font-body font-semibold text-white px-4 py-2 rounded-md text-xs hover:opacity-90 transition-opacity"
           style={{ backgroundColor: "#FF8900" }}
         >
           Add to Cart
@@ -71,7 +72,7 @@ const Snacks = () => {
       <Navbar />
       <BackButton />
       <div className="container mx-auto px-4 pt-24 pb-16">
-        <h1 className="font-navbar text-2xl md:text-3xl font-bold text-foreground text-center mb-2">Our Snacks</h1>
+        <h1 className="font-body text-2xl md:text-3xl font-bold text-foreground text-center mb-2">Our Snacks</h1>
         <p className="font-body text-muted-foreground text-center text-sm mb-8">Handmade, traditional, no shortcuts. Straight from Hyderabad kitchens.</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

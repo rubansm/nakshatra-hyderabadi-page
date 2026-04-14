@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     q: "How do I place an order?",
-    a: "Just message us on WhatsApp with your address and preferred jar size. We'll confirm and deliver within 24 hours (for orders before 6 PM).",
+    a: "Just message us on WhatsApp with your address and preferred pack size. We'll confirm and deliver within 24 hours (for orders before 6 PM).",
   },
 ];
 

@@ -2,19 +2,19 @@ const steps = [
   {
     num: "01",
     label: "Just Add It",
-    visual: "🍚 + 🫙",
+    video: "/gif-1.mp4",
     desc: "Drop a spoon onto hot rice",
   },
   {
     num: "02",
     label: "Coat Every Grain",
-    visual: "🥄🔥",
+    video: "/gif-2.mp4",
     desc: "Mix until the oil coats everything",
   },
   {
     num: "03",
     label: "That's a Meal",
-    visual: "🍽️✨",
+    video: "/gif-3.mp4",
     desc: "No sides needed. Just satisfaction.",
   },
 ];
@@ -22,10 +22,10 @@ const steps = [
 const HowToUseSection = () => {
 
   return (
-    <section className="bg-background py-20 md:py-32 overflow-hidden">
+    <section className="bg-background pt-10 pb-4 md:pt-16 md:pb-6 overflow-hidden">
       {/* Hook */}
-      <div className="container mx-auto px-4 text-center mb-16 md:mb-24">
-        <h2 className="font-navbar text-4xl md:text-6xl font-bold text-foreground leading-tight mb-4">
+      <div className="container mx-auto px-4 text-center mb-10 md:mb-14">
+        <h2 className="font-body text-4xl md:text-6xl font-bold text-foreground leading-tight mb-4">
           There's a Better Way<br />to Eat This
         </h2>
         <p className="font-body text-muted-foreground text-lg md:text-xl tracking-wide uppercase">
@@ -41,12 +41,19 @@ const HowToUseSection = () => {
 
           {steps.map((step, i) => (
             <div key={step.num} className="relative flex flex-col items-center text-center group min-w-[110px] flex-1">
-              {/* Step circle */}
+              {/* Step circle with video */}
               <div
-                className="w-20 h-20 md:w-32 md:h-32 rounded-full bg-card border-2 border-border flex items-center justify-center mb-3 md:mb-5 relative z-10 transition-transform duration-500 hover:scale-105"
+                className="w-20 h-20 md:w-32 md:h-32 rounded-full border-2 border-border overflow-hidden mb-3 md:mb-5 relative z-10 transition-transform duration-500 hover:scale-105"
                 style={{ animationDelay: `${i * 200}ms` }}
               >
-                <span className="text-2xl md:text-4xl">{step.visual}</span>
+                <video
+                  src={step.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               {/* Step number */}
@@ -55,7 +62,7 @@ const HowToUseSection = () => {
               </span>
 
               {/* Step label */}
-              <h3 className="font-navbar text-xl md:text-2xl font-bold text-foreground mb-2">
+              <h3 className="font-body text-xl md:text-2xl font-bold text-foreground mb-2">
                 {step.label}
               </h3>
 
@@ -75,28 +82,26 @@ const HowToUseSection = () => {
         </div>
       </div>
 
-      {/* Video Placeholder */}
-      <div className="container mx-auto px-4 mb-14 md:mb-20">
-        <div className="max-w-lg mx-auto">
-          <div className="aspect-square rounded-2xl bg-muted/30 flex items-center justify-center overflow-hidden">
-            <p className="font-body text-muted-foreground/40 text-sm">Video</p>
-          </div>
-        </div>
-      </div>
-
       {/* Pairs with Everything */}
-      <div className="container mx-auto px-4 text-center mb-16">
-        <h2 className="font-navbar text-3xl md:text-5xl font-bold text-foreground leading-tight mb-10">
+      <div className="container mx-auto px-4 text-center mb-0">
+        <h2 className="font-body text-3xl md:text-5xl font-bold text-foreground leading-tight mb-6">
           Pairs with Everything
         </h2>
         <div className="max-w-lg mx-auto">
-          <div className="aspect-square rounded-2xl bg-muted/30 flex items-center justify-center overflow-hidden">
-            <p className="font-body text-muted-foreground/40 text-sm">Video</p>
+          <div className="aspect-square rounded-lg overflow-hidden">
+            <video
+              src="/pairs-with-everything.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 
-        <p className="font-body text-muted-foreground text-base md:text-lg mt-14 max-w-md mx-auto leading-relaxed">
-          One jar. Every meal. No sides needed.
+        <p className="font-body text-muted-foreground text-base md:text-lg mt-6 max-w-md mx-auto leading-relaxed">
+          One pack. Every meal. No sides needed.
         </p>
       </div>
     </section>

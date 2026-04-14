@@ -2,8 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { toast } from "sonner";
-
 type VariantKey = "250g" | "500g" | "1kg" | "more";
+
+const variantImages: Record<VariantKey, string> = {
+  "250g": "/product-250g.png",
+  "500g": "/product-500g.png",
+  "1kg": "/product-1kg.png",
+  more: "/product-more.png",
+};
 
 interface Variant {
   title: string;
@@ -15,21 +21,21 @@ interface Variant {
 
 const variants: Record<VariantKey, Variant & { priceNum?: number }> = {
   "250g": {
-    title: "The Taster Jar",
+    title: "The Taster Pack",
     tagline: "A bold first bite.",
     description: "Enough for a week of fiery, flavour-packed meals. Pure groundnut oil, sun-dried spices.",
     price: "₹400",
     priceNum: 400,
   },
   "500g": {
-    title: "The Family Jar",
+    title: "The Family Pack",
     tagline: "The one everyone fights over.",
     description: "Two weeks of rich, homestyle chicken pickle. Our bestseller for a reason.",
     price: "₹600",
     priceNum: 600,
   },
   "1kg": {
-    title: "The Bulk Jar",
+    title: "The Bulk Pack",
     tagline: "For the ones who never run out.",
     description: "A month of deep, slow-cooked flavour. Best value, zero compromise.",
     price: "₹1000",
@@ -93,7 +99,7 @@ const ProductSection = () => {
       <div className="container mx-auto px-4 flex flex-col items-center">
         {/* Toggle */}
         <div
-          className="inline-flex rounded-full p-1 gap-1 mb-5"
+          className="inline-flex rounded-md p-1 gap-1 mb-5"
           style={{
             background: "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(133,53,55,0.12))",
             backdropFilter: "blur(12px)",
@@ -106,7 +112,7 @@ const ProductSection = () => {
             <button
               key={key}
               onClick={() => handleToggle(key)}
-              className={`px-4 py-1.5 rounded-full text-xs font-body font-semibold uppercase tracking-wider transition-all duration-200 ${
+              className={`px-4 py-1.5 rounded text-xs font-body font-semibold uppercase tracking-wider transition-all duration-200 ${
                 selected === key
                   ? "text-white shadow-md"
                   : "text-foreground/70 hover:text-foreground"
@@ -125,7 +131,7 @@ const ProductSection = () => {
           }`}
         >
           {/* H1 + Tagline */}
-          <h2 className="font-navbar text-2xl md:text-3xl font-bold text-foreground leading-tight">
+          <h2 className="font-body text-2xl md:text-3xl font-bold text-foreground leading-tight">
             {current.title}
           </h2>
           <p className="font-body text-muted-foreground text-sm mt-1 mb-4">
@@ -133,10 +139,8 @@ const ProductSection = () => {
           </p>
 
           {/* Image - shorter aspect ratio */}
-          <div className="w-full max-w-sm aspect-[4/3] rounded-2xl bg-card flex items-center justify-center mb-4">
-            <span className="font-body text-muted-foreground text-xs uppercase tracking-widest">
-              Product Image
-            </span>
+          <div className="w-full max-w-sm aspect-[4/3] rounded-lg overflow-hidden mb-4">
+            <img src={variantImages[selected]} alt={`Nakshatra Chicken Pickle ${selected}`} className="w-full h-full object-cover" />
           </div>
 
           {/* Description */}
@@ -146,7 +150,7 @@ const ProductSection = () => {
 
           {/* Price */}
           <p
-            className="font-navbar text-2xl md:text-3xl font-bold mb-3"
+            className="font-body text-2xl md:text-3xl font-bold mb-3"
             style={{ color: "#FF8900" }}
           >
             {current.price}
@@ -155,10 +159,10 @@ const ProductSection = () => {
           {/* Quantity + CTA */}
           {!current.isCustom ? (
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 border border-border rounded-full px-2 py-1">
+              <div className="flex items-center gap-2 border border-border rounded-md px-2 py-1">
                 <button
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-foreground/70 hover:text-foreground transition-colors"
+                  className="w-7 h-7 flex items-center justify-center text-foreground/70 hover:text-foreground transition-colors"
                 >
                   <Minus size={14} />
                 </button>
@@ -167,7 +171,7 @@ const ProductSection = () => {
                 </span>
                 <button
                   onClick={() => setQuantity((q) => q + 1)}
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-foreground/70 hover:text-foreground transition-colors"
+                  className="w-7 h-7 flex items-center justify-center text-foreground/70 hover:text-foreground transition-colors"
                 >
                   <Plus size={14} />
                 </button>
@@ -181,7 +185,7 @@ const ProductSection = () => {
                     setQuantity(1);
                   }
                 }}
-                className="inline-flex items-center justify-center font-body font-semibold text-white px-6 py-2.5 rounded-full text-sm hover:opacity-90"
+                className="inline-flex items-center justify-center font-body font-semibold text-white px-6 py-2.5 rounded-md text-sm hover:opacity-90"
                 style={{ backgroundColor: "#FF8900" }}
               >
                 Add to Cart
@@ -192,7 +196,7 @@ const ProductSection = () => {
               href="https://wa.me/919010291295?text=Hi%2C%20Nakshatra%20foods%2C%20May%20I%20have%20your%20time%20%21%21%21"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center font-body font-semibold text-white px-6 py-2.5 rounded-full text-sm transition-opacity hover:opacity-90"
+              className="inline-flex items-center justify-center font-body font-semibold text-white px-6 py-2.5 rounded-md text-sm transition-opacity hover:opacity-90"
               style={{ backgroundColor: "#FF8900" }}
             >
               Enquire Now

@@ -6,7 +6,7 @@
 All colors MUST be HSL.
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 @font-face {
   font-family: 'RoxboroughCF';
@@ -63,17 +63,40 @@ All colors MUST be HSL.
     --cream: 40 30% 96%;
     --spice-red: 0 70% 40%;
 
-    --font-display: 'Playfair Display', serif;
-    --font-body: 'Source Sans 3', sans-serif;
+    --font-display: 'Poppins', sans-serif;
+    --font-body: 'Poppins', sans-serif;
   }
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
   * {
     @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Warm spice-inspired gradient for light sections */
+  .bg-background {
+    background:
+      radial-gradient(ellipse at 0% 0%, hsla(35, 50%, 80%, 0.5) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 20%, hsla(42, 60%, 75%, 0.4) 0%, transparent 45%),
+      radial-gradient(ellipse at 20% 100%, hsla(20, 45%, 78%, 0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, hsla(8, 40%, 82%, 0.3) 0%, transparent 45%),
+      hsl(var(--background));
+  }
+
+  .bg-cream {
+    background:
+      radial-gradient(ellipse at 100% 0%, hsla(42, 55%, 78%, 0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 0% 100%, hsla(25, 45%, 80%, 0.35) 0%, transparent 50%),
+      hsl(var(--cream));
   }
 }
