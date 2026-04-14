@@ -67,12 +67,25 @@ const Navbar = () => {
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
 
-        <button onClick={() => { navigate("/"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:opacity-80 transition-opacity">
-          <img src="/nakshatra-logo.png" alt="Nakshatra" className="h-7" />
+        <button
+          onClick={() => {
+            navigate("/");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="hover:opacity-80 transition-opacity"
+        >
+          <img
+            src="https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/Nakshatra%20Logo.png"
+            alt="Nakshatra"
+            className="h-7"
+          />
         </button>
 
         <button
-          onClick={() => { navigate("/billing"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+          onClick={() => {
+            navigate("/billing");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
           className="relative text-black/70 hover:text-black transition-colors"
           aria-label="Cart"
         >
