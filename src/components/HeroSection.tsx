@@ -14,7 +14,7 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         {/* Mobile Video */}
         <video
-          src="/hero-bg-mobile.mp4"
+          src="https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/Untitled%20design%20(1).mp4"
           autoPlay
           loop
           muted
@@ -23,7 +23,7 @@ const HeroSection = () => {
         />
         {/* Desktop Video */}
         <video
-          src="/hero-bg-desktop.mp4"
+          src="https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/download%20(3).mp4"
           autoPlay
           loop
           muted
