@@ -5,10 +5,10 @@ import { toast } from "sonner";
 type VariantKey = "250g" | "500g" | "1kg" | "more";
 
 const variantImages: Record<VariantKey, string> = {
-  "250g": "/product-250g.png",
-  "500g": "/product-500g.png",
-  "1kg": "/product-1kg.png",
-  more: "/product-more.png",
+  "250g": "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/259gm.png",
+  "500g": "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/500gm.png",
+  "1kg": "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/1kg.png",
+  more: "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/more.png",
 };
 
 interface Variant {
@@ -85,7 +85,7 @@ const ProductSection = () => {
           hasSnapped.current = false;
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
 
     observer.observe(el);
@@ -121,9 +121,7 @@ const ProductSection = () => {
               key={key}
               onClick={() => handleToggle(key)}
               className={`px-4 py-1.5 rounded text-xs font-body font-semibold uppercase tracking-wider transition-all duration-200 ${
-                selected === key
-                  ? "text-white shadow-md"
-                  : "text-foreground/70 hover:text-foreground"
+                selected === key ? "text-white shadow-md" : "text-foreground/70 hover:text-foreground"
               }`}
               style={selected === key ? { backgroundColor: "#FF8900" } : {}}
             >
@@ -139,28 +137,23 @@ const ProductSection = () => {
           }`}
         >
           {/* H1 + Tagline */}
-          <h2 className="font-body text-2xl md:text-3xl font-bold text-foreground leading-tight">
-            {current.title}
-          </h2>
-          <p className="font-body text-muted-foreground text-sm mt-1 mb-4">
-            {current.tagline}
-          </p>
+          <h2 className="font-body text-2xl md:text-3xl font-bold text-foreground leading-tight">{current.title}</h2>
+          <p className="font-body text-muted-foreground text-sm mt-1 mb-4">{current.tagline}</p>
 
           {/* Image - shorter aspect ratio */}
           <div className="w-full max-w-sm aspect-[4/3] rounded-lg overflow-hidden mb-4">
-            <img src={variantImages[selected]} alt={`Nakshatra Chicken Pickle ${selected}`} className="w-full h-full object-cover" />
+            <img
+              src={variantImages[selected]}
+              alt={`Nakshatra Chicken Pickle ${selected}`}
+              className="w-full h-full object-cover"
+            />
           </div>
 
           {/* Description */}
-          <p className="font-body text-foreground/80 text-sm leading-relaxed max-w-xs mb-3">
-            {current.description}
-          </p>
+          <p className="font-body text-foreground/80 text-sm leading-relaxed max-w-xs mb-3">{current.description}</p>
 
           {/* Price */}
-          <p
-            className="font-body text-2xl md:text-3xl font-bold mb-3"
-            style={{ color: "#FF8900" }}
-          >
+          <p className="font-body text-2xl md:text-3xl font-bold mb-3" style={{ color: "#FF8900" }}>
             {current.price}
           </p>
 
@@ -174,9 +167,7 @@ const ProductSection = () => {
                 >
                   <Minus size={14} />
                 </button>
-                <span className="font-body font-semibold text-foreground w-5 text-center text-sm">
-                  {quantity}
-                </span>
+                <span className="font-body font-semibold text-foreground w-5 text-center text-sm">{quantity}</span>
                 <button
                   onClick={() => setQuantity((q) => q + 1)}
                   className="w-7 h-7 flex items-center justify-center text-foreground/70 hover:text-foreground transition-colors"
@@ -188,7 +179,10 @@ const ProductSection = () => {
               <button
                 onClick={() => {
                   if (current.priceNum) {
-                    addToCart({ name: `Chicken Pickle (${selected})`, price: current.price, priceNum: current.priceNum }, quantity);
+                    addToCart(
+                      { name: `Chicken Pickle (${selected})`, price: current.price, priceNum: current.priceNum },
+                      quantity,
+                    );
                     toast.success(`${quantity}x Chicken Pickle (${selected}) added to cart`);
                     setQuantity(1);
                   }
