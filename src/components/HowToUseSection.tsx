@@ -2,19 +2,19 @@ const steps = [
   {
     num: "01",
     label: "Just Add It",
-    video: "/gif-1.mp4",
+    video: "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/GIF%201.mp4",
     desc: "Drop a spoon onto hot rice",
   },
   {
     num: "02",
     label: "Coat Every Grain",
-    video: "/gif-2.mp4",
+    video: "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/GIF%202.mp4",
     desc: "Mix until the oil coats everything",
   },
   {
     num: "03",
     label: "That's a Meal",
-    video: "/gif-3.mp4",
+    video: "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/GIF%203.mp4",
     desc: "No sides needed. Just satisfaction.",
   },
 ];
@@ -25,7 +25,9 @@ const HowToUseSection = () => {
       {/* Hook */}
       <div className="container mx-auto px-4 text-center mb-10 md:mb-14">
         <h2 className="font-body text-4xl md:text-6xl font-bold text-foreground leading-tight mb-4">
-          There's a Better Way<br />to Eat This
+          There's a Better Way
+          <br />
+          to Eat This
         </h2>
         <p className="font-body text-muted-foreground text-lg md:text-xl tracking-wide uppercase">
           Your daily staple, perfected
@@ -43,27 +45,16 @@ const HowToUseSection = () => {
                 className="w-20 h-20 md:w-32 md:h-32 rounded-full border-2 border-border overflow-hidden mb-3 md:mb-5 relative z-10 transition-transform duration-500 hover:scale-105"
                 style={{ animationDelay: `${i * 200}ms` }}
               >
-                <video
-                  src={step.video}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
+                <video src={step.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
               </div>
 
               <span className="font-body text-xs tracking-[0.2em] text-muted-foreground/50 uppercase mb-2">
                 Step {step.num}
               </span>
 
-              <h3 className="font-body text-xl md:text-2xl font-bold text-foreground mb-2">
-                {step.label}
-              </h3>
+              <h3 className="font-body text-xl md:text-2xl font-bold text-foreground mb-2">{step.label}</h3>
 
-              <p className="font-body text-muted-foreground text-sm max-w-[200px]">
-                {step.desc}
-              </p>
+              <p className="font-body text-muted-foreground text-sm max-w-[200px]">{step.desc}</p>
 
               {i < steps.length - 1 && (
                 <div className="absolute top-8 md:top-14 -right-2 md:-right-3 z-20 text-muted-foreground/30 text-lg md:text-2xl">
