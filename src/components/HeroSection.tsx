@@ -13,34 +13,28 @@ const HeroSection = () => {
       {/* Video Background */}
       <div className="absolute inset-0">
         {/* Mobile Video */}
-        <video
-          src="/hero-bg-mobile.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover md:hidden"
+        <iframe
+          src="https://player.vimeo.com/video/1183095318?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&badge=0&autopause=0"
+          className="w-full h-full object-cover md:hidden border-0"
+          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+          allow="autoplay; fullscreen"
+          title="Hero mobile"
         />
         {/* Desktop Video */}
-        <video
-          src="/hero-bg-desktop.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover hidden md:block"
+        <iframe
+          src="https://player.vimeo.com/video/1183095274?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&badge=0&autopause=0"
+          className="w-full h-full object-cover hidden md:block border-0"
+          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+          allow="autoplay; fullscreen"
+          title="Hero desktop"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-warm-brown/30 via-transparent to-warm-brown/40" />
-        {/* Bottom fade — blends hero image into the black section below */}
         <div className="absolute bottom-0 left-0 right-0 h-40 md:h-56 bg-gradient-to-b from-transparent to-black pointer-events-none" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col justify-end pb-6 px-6 md:px-12">
-        {/* Spacer for floating CTA */}
         <div className="h-[56px]" />
-
-        {/* Trust Badges — right below the CTA */}
         <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 max-w-xs mx-auto md:grid-cols-4 md:max-w-2xl">
           {heroBadges.map(({ icon: Icon, label }) => (
             <div key={label} className="flex items-center gap-2">
