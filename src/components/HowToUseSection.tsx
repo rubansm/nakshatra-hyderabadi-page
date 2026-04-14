@@ -74,7 +74,7 @@ const HowToUseSection = () => {
         <div className="max-w-lg mx-auto">
           <div className="aspect-square rounded-lg overflow-hidden">
             <video
-              src="/pairs-with-everything.mp4"
+              src="https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/Pairs%20with%20everything.mp4"
               autoPlay
               loop
               muted
