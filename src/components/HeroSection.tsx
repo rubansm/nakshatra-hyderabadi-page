@@ -13,20 +13,22 @@ const HeroSection = () => {
       {/* Video Background */}
       <div className="absolute inset-0">
         {/* Mobile Video */}
-        <iframe
-          src="https://player.vimeo.com/video/1183095318?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&badge=0&autopause=0"
-          className="w-full h-full object-cover md:hidden border-0"
-          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-          allow="autoplay; fullscreen"
-          title="Hero mobile"
+        <video
+          src="/hero-bg-mobile.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover md:hidden"
         />
         {/* Desktop Video */}
-        <iframe
-          src="https://player.vimeo.com/video/1183095274?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&badge=0&autopause=0"
-          className="w-full h-full object-cover hidden md:block border-0"
-          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-          allow="autoplay; fullscreen"
-          title="Hero desktop"
+        <video
+          src="/hero-bg-desktop.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover hidden md:block"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-warm-brown/30 via-transparent to-warm-brown/40" />
         <div className="absolute bottom-0 left-0 right-0 h-40 md:h-56 bg-gradient-to-b from-transparent to-black pointer-events-none" />

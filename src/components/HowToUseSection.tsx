@@ -2,19 +2,19 @@ const steps = [
   {
     num: "01",
     label: "Just Add It",
-    vimeoId: "1183092544",
+    video: "/gif-1.mp4",
     desc: "Drop a spoon onto hot rice",
   },
   {
     num: "02",
     label: "Coat Every Grain",
-    vimeoId: "1183092584",
+    video: "/gif-2.mp4",
     desc: "Mix until the oil coats everything",
   },
   {
     num: "03",
     label: "That's a Meal",
-    vimeoId: "1183092624",
+    video: "/gif-3.mp4",
     desc: "No sides needed. Just satisfaction.",
   },
 ];
@@ -43,12 +43,13 @@ const HowToUseSection = () => {
                 className="w-20 h-20 md:w-32 md:h-32 rounded-full border-2 border-border overflow-hidden mb-3 md:mb-5 relative z-10 transition-transform duration-500 hover:scale-105"
                 style={{ animationDelay: `${i * 200}ms` }}
               >
-                <iframe
-                  src={`https://player.vimeo.com/video/${step.vimeoId}?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&badge=0&autopause=0`}
-                  className="border-0"
-                  style={{ width: '200%', height: '200%', position: 'absolute', top: '-50%', left: '-50%' }}
-                  allow="autoplay; fullscreen"
-                  title={step.label}
+                <video
+                  src={step.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
                 />
               </div>
 
@@ -80,13 +81,14 @@ const HowToUseSection = () => {
           Pairs with Everything
         </h2>
         <div className="max-w-lg mx-auto">
-          <div className="aspect-square rounded-lg overflow-hidden relative">
-            <iframe
-              src="https://player.vimeo.com/video/1183092674?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&badge=0&autopause=0"
-              className="border-0"
-              style={{ position: 'absolute', top: '-15%', left: '-15%', width: '130%', height: '130%' }}
-              allow="autoplay; fullscreen"
-              title="Pairs with everything"
+          <div className="aspect-square rounded-lg overflow-hidden">
+            <video
+              src="/pairs-with-everything.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
             />
           </div>
         </div>
