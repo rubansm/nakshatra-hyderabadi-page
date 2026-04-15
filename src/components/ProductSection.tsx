@@ -30,7 +30,7 @@ const variants: Record<VariantKey, Variant & { priceNum?: number }> = {
   "500g": {
     title: "The Family Pack",
     tagline: "The one everyone fights over.",
-    description: "Two weeks of rich, homestyle chicken pickle. Our bestseller for a reason.",
+    description: "Juicy, succulent chicken slow-cooked in rich oils, bursting with bold, fiery flavours. Mix it with hot rice and watch it disappear before you know it.",
     price: "₹600",
     priceNum: 600,
   },

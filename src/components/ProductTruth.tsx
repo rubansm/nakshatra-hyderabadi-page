@@ -11,11 +11,8 @@ const ProductTruth = () => {
         />
         {/* Text overlaid on top of the image */}
         <div className="absolute top-0 left-0 right-0 pt-8 md:pt-14 px-4 text-center z-10">
-          <p className="font-body text-turmeric uppercase tracking-[0.25em] text-xs md:text-sm mb-2">
-            What Goes In
-          </p>
           <h2 className="font-display text-2xl md:text-4xl font-bold text-white leading-tight drop-shadow-lg">
-            Ingredients That Defy Distance
+            The anatomy of a good pickle
           </h2>
         </div>
       </div>

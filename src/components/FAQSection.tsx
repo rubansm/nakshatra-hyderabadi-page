@@ -12,15 +12,15 @@ const faqs = [
   },
   {
     q: "Is it really that spicy?",
-    a: "It has authentic Hyderabadi heat — bold but balanced. If you eat Andhra food regularly, you'll love it. We also offer a medium-spice variant on request.",
+    a: "It has Hyderabad-level spice (like proper spice). If you eat Andhra food regularly, you'll love it. But we don't want you teary eyed while you eat it. If you want it less spicy, please let us know on the call. We'll make it the way you love it!",
   },
   {
-    q: "Do you deliver outside Chennai?",
-    a: "Currently, we deliver across Chennai only. We're working on expanding to Bangalore and Hyderabad soon. Follow us on Instagram for updates.",
+    q: "Do you deliver all across India?",
+    a: "Yes! We deliver all across India, not just Chennai.",
   },
   {
     q: "What oil do you use?",
-    a: "We use cold-pressed gingelly (sesame) oil — the traditional choice for South Indian pickles. No palm oil, no refined oil, no blends.",
+    a: "We use pure groundnut oil — no palm oil, no refined oil, no blends.",
   },
   {
     q: "Is the chicken halal?",

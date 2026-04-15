@@ -1,21 +1,21 @@
 const steps = [
   {
     num: "01",
-    label: "Just Add It",
+    label: "Add a Spoonful",
     video: "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/GIF%201.mp4",
-    desc: "Drop a spoon onto hot rice",
+    desc: "onto piping hot rice",
   },
   {
     num: "02",
-    label: "Coat Every Grain",
+    label: "Mix it in",
     video: "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/GIF%202.mp4",
-    desc: "Mix until the oil coats everything",
+    desc: "Until every grain drips with flavor",
   },
   {
     num: "03",
-    label: "That's a Meal",
+    label: "Eat in Peace",
     video: "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/GIF%203.mp4",
-    desc: "No sides needed. Just satisfaction.",
+    desc: "A complete meal in seconds",
   },
 ];
 
@@ -24,14 +24,9 @@ const HowToUseSection = () => {
     <section className="bg-background pt-10 pb-4 md:pt-16 md:pb-6 overflow-hidden">
       {/* Hook */}
       <div className="container mx-auto px-4 text-center mb-10 md:mb-14">
-        <h2 className="font-body text-4xl md:text-6xl font-bold text-foreground leading-tight mb-4">
-          There's a Better Way
-          <br />
-          to Eat This
+        <h2 className="font-body text-3xl md:text-6xl font-bold text-foreground leading-tight mb-4">
+          A Comforting Meal in<br />3 Simple Steps
         </h2>
-        <p className="font-body text-muted-foreground text-lg md:text-xl tracking-wide uppercase">
-          Your daily staple, perfected
-        </p>
       </div>
 
       {/* 3-Step Horizontal Flow */}
@@ -66,10 +61,10 @@ const HowToUseSection = () => {
         </div>
       </div>
 
-      {/* Pairs with Everything */}
+      {/* Goes with Everything */}
       <div className="container mx-auto px-4 text-center mb-0">
         <h2 className="font-body text-3xl md:text-5xl font-bold text-foreground leading-tight mb-6">
-          Pairs with Everything
+          Goes with Everything
         </h2>
         <div className="max-w-lg mx-auto">
           <div className="aspect-square rounded-lg overflow-hidden">
@@ -85,7 +80,7 @@ const HowToUseSection = () => {
         </div>
 
         <p className="font-body text-muted-foreground text-base md:text-lg mt-6 max-w-md mx-auto leading-relaxed">
-          One pack. Every meal. No sides needed.
+          Like a best friend, always there when you need
         </p>
       </div>
     </section>
