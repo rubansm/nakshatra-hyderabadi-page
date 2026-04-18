@@ -50,7 +50,7 @@ const Navbar = () => {
   return (
     <nav ref={navRef} className="fixed top-6 left-4 right-4 z-50">
       <div
-        className="max-w-lg mx-auto rounded-lg px-6 h-12 flex items-center justify-between"
+        className="max-w-lg mx-auto rounded-lg px-6 h-16 flex items-center justify-between"
         style={{
           background: "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(133,53,55,0.12))",
           backdropFilter: "blur(12px)",
@@ -77,7 +77,11 @@ const Navbar = () => {
           <img
             src="https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/Nakshatra%20Logo.png"
             alt="Nakshatra"
-            className="h-7"
+            style={{
+              height: "52px",
+              transform: "scale(1.6)",
+              transformOrigin: "center center",
+            }}
           />
         </button>
 

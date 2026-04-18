@@ -103,34 +103,69 @@ const Checkout = () => {
     setStep((s) => Math.min(s + 1, 2));
   };
 
-  const handlePayment = () => {
-    if (!paymentMethod) {
-      setErrors({ payment: "Please select a payment method" });
-      return;
-    }
-    const methodLabel =
-      paymentMethod === "card" ? "Card (pay online)"
-      : paymentMethod === "upi" ? "UPI (pay online)"
-      : "Cash on Delivery";
-
+  const buildOrderDetails = (paymentId?: string) => {
     const orderSummary = items
       .map((i) => `${i.quantity}x ${i.name} (${i.price} each)`)
       .join("\n");
-
     const discountLine = appliedCoupon
       ? `\nCoupon: ${appliedCoupon} (${couponData?.label}) — Save ₹${discountAmount}`
       : "";
     const instructionsLine = deliveryInstructions.trim()
       ? `\nDelivery Instructions: ${deliveryInstructions.trim()}`
       : "";
+    const addrLine = `${address.door}, ${address.building ? address.building + ", " : ""}${address.street}, ${address.area}, ${address.city} - ${address.pincode}`;
 
-    const msg = `Hi, Nakshatra foods, May I have your time !!!\n\nI'd like to place an order:\n\nName: ${contact.name}\nWhatsApp: ${contact.whatsapp}\nAddress: ${address.door}, ${address.building ? address.building + ", " : ""}${address.street}, ${address.area}, ${address.city} - ${address.pincode}${instructionsLine}\n\n${orderSummary}${discountLine}\n\nSubtotal: ₹${subtotal}\nPayment method: ${methodLabel}\n\nPlease confirm this order and share payment/OTP details.`;
+    if (paymentId) {
+      return `Hi Nakshatra Foods! 🎉 Payment successful!\n\nPayment ID: ${paymentId}\n\nName: ${contact.name}\nWhatsApp: +91${contact.whatsapp}\nAddress: ${addrLine}${instructionsLine}\n\n${orderSummary}${discountLine}\n\nTotal Paid: ₹${subtotal}\n\nPlease confirm and process my order. Thank you!`;
+    }
+    return `Hi Nakshatra Foods! I'd like to place a Cash on Delivery order.\n\nName: ${contact.name}\nWhatsApp: +91${contact.whatsapp}\nAddress: ${addrLine}${instructionsLine}\n\n${orderSummary}${discountLine}\n\nSubtotal: ₹${subtotal}\nPayment: Cash on Delivery\n\nPlease confirm this order. Thank you!`;
+  };
 
-    window.open(
-      `https://wa.me/919010291295?text=${encodeURIComponent(msg)}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
+  const handlePayment = () => {
+    if (!paymentMethod) {
+      setErrors({ payment: "Please select a payment method" });
+      return;
+    }
+
+    if (paymentMethod === "cod") {
+      window.open(
+        `https://wa.me/919010291295?text=${encodeURIComponent(buildOrderDetails())}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+      return;
+    }
+
+    // Razorpay for Card / UPI
+    const options = {
+      key: "rzp_live_SeaaRIyS9RZUFW",
+      amount: subtotal * 100, // paise
+      currency: "INR",
+      name: "Nakshatra Foods",
+      description: "Hyderabadi Chicken Pickle",
+      image: "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/Nakshatra%20Logo.png",
+      handler: (response: { razorpay_payment_id: string }) => {
+        window.open(
+          `https://wa.me/919010291295?text=${encodeURIComponent(buildOrderDetails(response.razorpay_payment_id))}`,
+          "_blank",
+          "noopener,noreferrer"
+        );
+      },
+      prefill: {
+        name: contact.name,
+        contact: `91${contact.whatsapp}`,
+      },
+      theme: { color: "#FF8900" },
+      modal: {
+        ondismiss: () => {
+          setErrors({ payment: "Payment was cancelled. Please try again." });
+        },
+      },
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
   };
 
   const isChennai = address.city.trim().toLowerCase() === "chennai";
@@ -418,8 +453,8 @@ const Checkout = () => {
             {paymentMethod && (
               <p className="font-body text-xs text-muted-foreground">
                 {paymentMethod === "cod"
-                  ? "You'll receive an OTP on WhatsApp to confirm your COD order."
-                  : "We'll confirm your order on WhatsApp and share the payment link."}
+                  ? "You'll receive a confirmation on WhatsApp once your order is placed."
+                  : "Secure payment via Razorpay. After payment, your order details will be sent to us on WhatsApp automatically."}
               </p>
             )}
           </div>
@@ -434,7 +469,13 @@ const Checkout = () => {
             className="w-full font-body font-semibold text-white py-3.5 rounded-md text-sm hover:opacity-90 transition-opacity"
             style={{ backgroundColor: step < 2 ? "#FF8900" : "#16A34A" }}
           >
-            {step < 2 ? "Continue" : "Confirm Order via WhatsApp"}
+            {step < 2
+              ? "Continue"
+              : paymentMethod === "cod"
+              ? "Confirm COD Order"
+              : paymentMethod
+              ? `Pay ₹${subtotal} Securely`
+              : "Confirm Order"}
           </button>
         </div>
       </div>
