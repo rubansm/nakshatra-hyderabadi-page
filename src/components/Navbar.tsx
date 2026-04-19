@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, ShoppingCart } from "lucide-react";
+import { Menu, X, ShoppingCart, ArrowLeft } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
 
@@ -30,6 +30,16 @@ const Navbar = () => {
     { label: "Contact Us", path: "/contact" },
   ];
 
+  const isHome = location.pathname === "/";
+
+  const handleBack = () => {
+    if (window.history.length > 2) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
+  };
+
   const handleNavClick = (path: string) => {
     setMenuOpen(false);
     if (path === "/#story") {
@@ -59,13 +69,24 @@ const Navbar = () => {
           boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
         }}
       >
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="text-black/70 hover:text-black transition-colors"
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
+        <div className="flex items-center gap-3">
+          {!isHome && (
+            <button
+              onClick={handleBack}
+              className="text-black/70 hover:text-black transition-colors"
+              aria-label="Go back"
+            >
+              <ArrowLeft size={18} />
+            </button>
+          )}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-black/70 hover:text-black transition-colors"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
 
         <button
           onClick={() => {
