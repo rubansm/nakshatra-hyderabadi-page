@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { Input } from "@/components/ui/input";
 import {
   ChevronRight, CreditCard, Smartphone, Banknote,
-  Info, Tag, Check, X, Minus, Plus, ShoppingBag,
+  Info, Tag, Check, X, Minus, Plus, ShoppingBag, ShieldCheck,
 } from "lucide-react";
 import {
   Drawer,
@@ -406,57 +406,82 @@ const Checkout = () => {
 
         {/* ── Step 3: Payment ── */}
         {step === 2 && (
-          <div className="space-y-6">
-            <h2 className="font-body text-xl font-bold text-foreground">Payment details</h2>
-            <div className="border border-border rounded-lg overflow-hidden">
+          <div className="space-y-4">
+            <h2 className="font-body text-xl font-bold text-foreground">Choose a payment method</h2>
+            <div className="space-y-2.5">
               {/* Card */}
               <button
                 onClick={() => { setPaymentMethod("card"); setErrors({}); }}
-                className={`w-full flex items-center gap-3 px-4 py-4 text-left border-b border-border transition-colors ${paymentMethod === "card" ? "bg-accent" : ""}`}
+                className={`w-full flex items-center gap-3 px-4 py-4 text-left rounded-xl border-2 transition-all bg-white ${
+                  paymentMethod === "card"
+                    ? "border-[#FF8900] shadow-sm"
+                    : "border-border/60 hover:border-foreground/30"
+                }`}
               >
-                <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${paymentMethod === "card" ? "border-[#16A34A]" : "border-muted-foreground"}`}>
-                  {paymentMethod === "card" && <span className="w-2.5 h-2.5 rounded-full bg-[#16A34A]" />}
+                <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${paymentMethod === "card" ? "border-[#FF8900]" : "border-muted-foreground"}`}>
+                  {paymentMethod === "card" && <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "#FF8900" }} />}
                 </span>
-                <CreditCard size={20} className="text-foreground" />
-                <span className="font-body text-sm font-medium text-foreground">Debit / Credit Card</span>
+                <CreditCard size={20} className="text-foreground shrink-0" />
+                <div className="flex-1">
+                  <span className="font-body text-sm font-semibold text-foreground block">Credit / Debit Card</span>
+                  <span className="font-body text-xs text-muted-foreground">Visa, Mastercard, RuPay, Amex</span>
+                </div>
               </button>
 
               {/* UPI */}
               <button
                 onClick={() => { setPaymentMethod("upi"); setErrors({}); }}
-                className={`w-full flex items-center gap-3 px-4 py-4 text-left border-b border-border transition-colors ${paymentMethod === "upi" ? "bg-accent" : ""}`}
+                className={`w-full flex items-center gap-3 px-4 py-4 text-left rounded-xl border-2 transition-all bg-white ${
+                  paymentMethod === "upi"
+                    ? "border-[#FF8900] shadow-sm"
+                    : "border-border/60 hover:border-foreground/30"
+                }`}
               >
-                <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${paymentMethod === "upi" ? "border-[#16A34A]" : "border-muted-foreground"}`}>
-                  {paymentMethod === "upi" && <span className="w-2.5 h-2.5 rounded-full bg-[#16A34A]" />}
+                <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${paymentMethod === "upi" ? "border-[#FF8900]" : "border-muted-foreground"}`}>
+                  {paymentMethod === "upi" && <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "#FF8900" }} />}
                 </span>
-                <Smartphone size={20} className="text-foreground" />
-                <span className="font-body text-sm font-medium text-foreground">UPI</span>
+                <Smartphone size={20} className="text-foreground shrink-0" />
+                <div className="flex-1">
+                  <span className="font-body text-sm font-semibold text-foreground block">UPI</span>
+                  <span className="font-body text-xs text-muted-foreground">GPay, PhonePe, Paytm, BHIM</span>
+                </div>
               </button>
 
               {/* COD */}
               <button
                 onClick={() => { if (isChennai) { setPaymentMethod("cod"); setErrors({}); } }}
-                className={`w-full flex items-center gap-3 px-4 py-4 text-left transition-colors ${!isChennai ? "opacity-50 cursor-not-allowed" : paymentMethod === "cod" ? "bg-accent" : ""}`}
+                className={`w-full flex items-center gap-3 px-4 py-4 text-left rounded-xl border-2 transition-all bg-white ${
+                  !isChennai
+                    ? "opacity-50 cursor-not-allowed border-border/60"
+                    : paymentMethod === "cod"
+                    ? "border-[#FF8900] shadow-sm"
+                    : "border-border/60 hover:border-foreground/30"
+                }`}
                 disabled={!isChennai}
               >
-                <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${paymentMethod === "cod" ? "border-[#16A34A]" : "border-muted-foreground"}`}>
-                  {paymentMethod === "cod" && <span className="w-2.5 h-2.5 rounded-full bg-[#16A34A]" />}
+                <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${paymentMethod === "cod" ? "border-[#FF8900]" : "border-muted-foreground"}`}>
+                  {paymentMethod === "cod" && <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "#FF8900" }} />}
                 </span>
-                <Banknote size={20} className="text-foreground" />
-                <div>
-                  <span className="font-body text-sm font-medium text-foreground">Cash on Delivery</span>
-                  {!isChennai && <p className="font-body text-xs text-muted-foreground">Available only in Chennai</p>}
+                <Banknote size={20} className="text-foreground shrink-0" />
+                <div className="flex-1">
+                  <span className="font-body text-sm font-semibold text-foreground block">Cash on Delivery</span>
+                  <span className="font-body text-xs text-muted-foreground">
+                    {!isChennai ? "Available only in Chennai" : "Pay at your doorstep"}
+                  </span>
                 </div>
               </button>
             </div>
             {errors.payment && <p className="text-destructive text-xs font-body">{errors.payment}</p>}
-            {paymentMethod && (
-              <p className="font-body text-xs text-muted-foreground">
+
+            {/* Trust indicator below methods */}
+            <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg p-3 mt-2">
+              <ShieldCheck size={18} className="text-green-700 shrink-0" />
+              <p className="font-body text-xs text-green-800 leading-snug">
                 {paymentMethod === "cod"
-                  ? "You'll receive a confirmation on WhatsApp once your order is placed."
-                  : "Secure payment via Razorpay. After payment, your order details will be sent to us on WhatsApp automatically."}
+                  ? "You'll receive order confirmation on WhatsApp once placed."
+                  : "100% Secure. Payments are processed by Razorpay — we never store your card details."}
               </p>
-            )}
+            </div>
           </div>
         )}
       </div>
