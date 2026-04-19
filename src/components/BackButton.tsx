@@ -18,11 +18,10 @@ const BackButton = () => {
   return (
     <button
       onClick={handleBack}
-      className="fixed top-[90px] left-4 z-40 flex items-center gap-1.5 px-4 py-2 rounded-md bg-white/30 backdrop-blur-xl border border-white/40 shadow-md text-foreground text-sm font-body hover:bg-white/50 transition-colors"
+      className="fixed top-[90px] left-4 z-40 w-8 h-8 flex items-center justify-center rounded-full bg-white/30 backdrop-blur-xl border border-white/40 shadow-md text-foreground hover:bg-white/50 transition-colors"
       aria-label="Go back"
     >
       <ArrowLeft className="w-4 h-4" />
-      <span>Back</span>
     </button>
   );
 };
