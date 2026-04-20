@@ -11,7 +11,9 @@
  *   VITE_SHEETS_WEBHOOK_URL=https://script.google.com/macros/s/XXX/exec
  */
 
-const WEBHOOK_URL = (import.meta.env.VITE_SHEETS_WEBHOOK_URL as string | undefined) || "";
+const WEBHOOK_URL =
+  (import.meta.env.VITE_SHEETS_WEBHOOK_URL as string | undefined) ||
+  "https://script.google.com/macros/s/AKfycbw3KNBNeNhmdz9vsAL0dD9vFTUSdF6q0Bkv8_JOz0hRLg-tZJmeUmZuVb3i4J_e93b89g/exec";
 
 export type OrderPayload = {
   orderId: string;
