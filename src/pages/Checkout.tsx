@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import BackButton from "@/components/BackButton";
 import { useCart } from "@/context/CartContext";
 import { Input } from "@/components/ui/input";
+import { reportLead, reportOrder, generateOrderId } from "@/lib/sheetsApi";
 import {
   ChevronRight, CreditCard, Smartphone, Banknote,
   Info, Tag, Check, X, Minus, Plus, ShoppingBag, ShieldCheck,
@@ -29,7 +30,7 @@ const Checkout = () => {
   const [breakdownOpen, setBreakdownOpen] = useState(false);
 
   const [deliveryInstructions, setDeliveryInstructions] = useState("");
-  const [contact, setContact] = useState({ name: "", whatsapp: "" });
+  const [contact, setContact] = useState({ name: "", whatsapp: "", email: "" });
   const [address, setAddress] = useState({
     door: "", building: "", street: "", area: "", city: "", pincode: "",
   });
@@ -80,6 +81,8 @@ const Checkout = () => {
     if (!contact.name.trim()) e.name = "Name is required";
     if (!contact.whatsapp.trim()) e.whatsapp = "WhatsApp number is required";
     else if (!/^\d{10}$/.test(contact.whatsapp.trim())) e.whatsapp = "Enter a valid 10-digit number";
+    if (contact.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email.trim()))
+      e.email = "Enter a valid email address";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -97,28 +100,24 @@ const Checkout = () => {
   };
 
   const handleNext = () => {
-    if (step === 0 && !validateContact()) return;
+    if (step === 0) {
+      if (!validateContact()) return;
+      // Fire partial lead once per session — owner sees it as an abandoned cart
+      // if the customer drops before completing payment.
+      if (!sessionStorage.getItem("nakshatra:leadReported")) {
+        sessionStorage.setItem("nakshatra:leadReported", "1");
+        reportLead({
+          name: contact.name.trim(),
+          phone: contact.whatsapp.trim(),
+          items: items.map((i) => `${i.quantity}x ${i.name}`).join(", "),
+          total: subtotal,
+          step: "Address",
+        });
+      }
+    }
     if (step === 1 && !validateAddress()) return;
     setErrors({});
     setStep((s) => Math.min(s + 1, 2));
-  };
-
-  const buildOrderDetails = (paymentId?: string) => {
-    const orderSummary = items
-      .map((i) => `${i.quantity}x ${i.name} (${i.price} each)`)
-      .join("\n");
-    const discountLine = appliedCoupon
-      ? `\nCoupon: ${appliedCoupon} (${couponData?.label}) — Save ₹${discountAmount}`
-      : "";
-    const instructionsLine = deliveryInstructions.trim()
-      ? `\nDelivery Instructions: ${deliveryInstructions.trim()}`
-      : "";
-    const addrLine = `${address.door}, ${address.building ? address.building + ", " : ""}${address.street}, ${address.area}, ${address.city} - ${address.pincode}`;
-
-    if (paymentId) {
-      return `Hi Nakshatra Foods! 🎉 Payment successful!\n\nPayment ID: ${paymentId}\n\nName: ${contact.name}\nWhatsApp: +91${contact.whatsapp}\nAddress: ${addrLine}${instructionsLine}\n\n${orderSummary}${discountLine}\n\nTotal Paid: ₹${subtotal}\n\nPlease confirm and process my order. Thank you!`;
-    }
-    return `Hi Nakshatra Foods! I'd like to place a Cash on Delivery order.\n\nName: ${contact.name}\nWhatsApp: +91${contact.whatsapp}\nAddress: ${addrLine}${instructionsLine}\n\n${orderSummary}${discountLine}\n\nSubtotal: ₹${subtotal}\nPayment: Cash on Delivery\n\nPlease confirm this order. Thank you!`;
   };
 
   const handlePayment = () => {
@@ -127,12 +126,54 @@ const Checkout = () => {
       return;
     }
 
-    if (paymentMethod === "cod") {
-      window.open(
-        `https://wa.me/919010291295?text=${encodeURIComponent(buildOrderDetails())}`,
-        "_blank",
-        "noopener,noreferrer"
+    // Build the canonical order payload once — used for sheet, email,
+    // Telegram ping, and the /order-success page.
+    const orderId = generateOrderId();
+    const itemsStr = items
+      .map((i) => `${i.quantity}x ${i.name} (${i.price} each)`)
+      .join("\n");
+    const couponLine = appliedCoupon
+      ? `\nCoupon: ${appliedCoupon} (${couponData?.label}) — Save ₹${discountAmount}`
+      : "";
+    const instrLine = deliveryInstructions.trim()
+      ? `\nDelivery Instructions: ${deliveryInstructions.trim()}`
+      : "";
+    const itemsBlock = itemsStr + couponLine + instrLine;
+
+    const addrStr = `${address.door}, ${address.building ? address.building + ", " : ""}${address.street}, ${address.area}, ${address.city} - ${address.pincode}`;
+
+    const finalize = (paymentId?: string) => {
+      const payload = {
+        orderId,
+        name: contact.name.trim(),
+        phone: contact.whatsapp.trim(),
+        email: contact.email.trim() || undefined,
+        items: itemsBlock,
+        subtotal,
+        paymentMethod: paymentMethod as "card" | "upi" | "cod",
+        paymentId,
+        address: addrStr,
+        deliveryInstructions: deliveryInstructions.trim() || undefined,
+      };
+
+      // Stash for /order-success page
+      sessionStorage.setItem(
+        "nakshatra:lastOrder",
+        JSON.stringify({
+          ...payload,
+          email: contact.email.trim(),
+          placedAt: new Date().toISOString(),
+        })
       );
+
+      // Fire webhook — not awaited; keepalive ensures delivery across navigation.
+      reportOrder(payload);
+
+      navigate("/order-success");
+    };
+
+    if (paymentMethod === "cod") {
+      finalize();
       return;
     }
 
@@ -145,15 +186,12 @@ const Checkout = () => {
       description: "Hyderabadi Chicken Pickle",
       image: "https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/Nakshatra%20Logo.png",
       handler: (response: { razorpay_payment_id: string }) => {
-        window.open(
-          `https://wa.me/919010291295?text=${encodeURIComponent(buildOrderDetails(response.razorpay_payment_id))}`,
-          "_blank",
-          "noopener,noreferrer"
-        );
+        finalize(response.razorpay_payment_id);
       },
       prefill: {
         name: contact.name,
         contact: `91${contact.whatsapp}`,
+        email: contact.email.trim() || undefined,
       },
       theme: { color: "#FF8900" },
       modal: {
@@ -360,6 +398,23 @@ const Checkout = () => {
                 />
               </div>
               {errors.whatsapp && <p className="text-destructive text-xs font-body">{errors.whatsapp}</p>}
+            </div>
+            <div className="space-y-1">
+              <label className="font-body text-sm font-medium text-foreground">
+                Email <span className="text-muted-foreground font-normal">(optional)</span>
+              </label>
+              <Input
+                placeholder="you@example.com"
+                value={contact.email}
+                onChange={(e) => setContact({ ...contact, email: e.target.value })}
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+              />
+              <p className="font-body text-xs text-muted-foreground">
+                We'll send your order confirmation + tracking link here.
+              </p>
+              {errors.email && <p className="text-destructive text-xs font-body">{errors.email}</p>}
             </div>
           </div>
         )}

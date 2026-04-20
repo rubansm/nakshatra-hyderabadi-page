@@ -195,7 +195,7 @@ const ProductSection = () => {
             </div>
           ) : (
             <a
-              href="https://wa.me/919010291295?text=Hi%2C%20Nakshatra%20foods%2C%20May%20I%20have%20your%20time%20%21%21%21"
+              href="https://wa.me/919840247628?text=Hi%2C%20Nakshatra%20foods%2C%20May%20I%20have%20your%20time%20%21%21%21"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center font-body font-semibold text-white px-6 py-2.5 rounded-md text-sm transition-opacity hover:opacity-90"

@@ -6,7 +6,7 @@ const Orders = () => {
   const [form, setForm] = useState({ name: "", mobile: "", email: "", query: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
+  const whatsappLink = `https://wa.me/919840247628?text=${encodeURIComponent(
     `Hi, Nakshatra foods, May I have your time !!! I'd like to place an order.\nName: ${form.name}\nMobile: ${form.mobile}\nEmail: ${form.email}\nQuery: ${form.query}`
   )}`;
 

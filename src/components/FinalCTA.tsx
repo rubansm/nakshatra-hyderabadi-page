@@ -12,7 +12,7 @@ const FinalCTA = () => {
           Free delivery across Chennai.
         </p>
         <a
-          href="https://wa.me/919010291295?text=Hi%2C%20Nakshatra%20foods%2C%20May%20I%20have%20your%20time%20%21%21%21"
+          href="https://wa.me/919840247628?text=Hi%2C%20Nakshatra%20foods%2C%20May%20I%20have%20your%20time%20%21%21%21"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block bg-turmeric text-warm-brown font-body font-bold px-10 py-4 rounded-md text-lg hover:opacity-90 transition-opacity"

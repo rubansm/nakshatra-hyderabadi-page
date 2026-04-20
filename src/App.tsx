@@ -13,6 +13,8 @@ import Contact from "./pages/Contact.tsx";
 import Reviews from "./pages/Reviews.tsx";
 import Billing from "./pages/Billing.tsx";
 import Checkout from "./pages/Checkout.tsx";
+import OrderSuccess from "./pages/OrderSuccess.tsx";
+import Track from "./pages/Track.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -42,6 +44,8 @@ const App = () => (
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/billing" element={<Billing />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order-success" element={<OrderSuccess />} />
+            <Route path="/track" element={<Track />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

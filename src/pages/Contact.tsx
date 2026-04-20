@@ -6,7 +6,7 @@ const Contact = () => {
   const [form, setForm] = useState({ name: "", phone: "", email: "", query: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  const whatsappLink = `https://wa.me/919010291295?text=${encodeURIComponent(
+  const whatsappLink = `https://wa.me/919840247628?text=${encodeURIComponent(
     `Hi, Nakshatra foods, May I have your time !!! I have a query.\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nQuery: ${form.query}`
   )}`;
 
