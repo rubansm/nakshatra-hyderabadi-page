@@ -102,7 +102,7 @@ const Track = () => {
         </div>
 
         {/* Result */}
-        {touched && result && !result.ok && !loading && (
+        {touched && result && result.ok === false && !loading && (
           <div className="bg-white rounded-xl border border-red-200 p-5 text-center shadow-sm">
             <p className="font-body text-sm font-semibold text-foreground mb-1">
               Hmm, we couldn't find that order
