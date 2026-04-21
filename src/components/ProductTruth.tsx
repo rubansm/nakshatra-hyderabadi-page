@@ -1,11 +1,9 @@
-import ingredientsHero from "@/assets/ingredients-hero.png";
-
 const ProductTruth = () => {
   return (
     <section className="relative">
       <div className="relative">
         <img
-          src={ingredientsHero}
+          src="https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/Anatomy.png"
           alt="Nakshatra Pickle ingredients — boneless chicken, cold-pressed sesame oil, turmeric, red chili, ginger-garlic paste, mustard seeds, fenugreek, curry leaves, and mixed spices"
           className="w-full h-auto block"
         />
