@@ -24,8 +24,8 @@
 
 const CONFIG = {
   // Telegram — where the owner gets instant order alerts
-  TELEGRAM_BOT_TOKEN: '7981137227:AAHRR2PbSFidBu-tM8iVxYXSDqvJSbe5hik',
-  TELEGRAM_CHAT_ID:   '5235510339',
+  TELEGRAM_BOT_TOKEN: '8545731342:AAEE-H40y2tIeb1X_nj7bEFe0mvft5-5ik0',
+  TELEGRAM_CHAT_ID:   '1006955161',
 
   // Brand + links that appear in customer emails
   BRAND_NAME:     'Nakshatra Foods',
