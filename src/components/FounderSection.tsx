@@ -20,13 +20,13 @@ const FounderSection = () => {
             <div className="relative rounded-lg overflow-hidden border-4 border-turmeric shadow-xl">
               <img
                 src={founderImg}
-                alt="Wilson Indrapalli — Founder of Nakshatra Foods"
+                alt="Vitor Indrapalli — Founder of Nakshatra Foods"
                 className="w-full h-auto block"
               />
               {/* Gradient overlay with name */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-16 pb-5 px-4 text-center">
                 <p className="font-display text-white text-xl md:text-2xl font-bold tracking-wide">
-                  Wilson Indrapalli
+                  Vitor Indrapalli
                 </p>
                 <p className="font-body text-white/70 text-sm uppercase tracking-[0.15em] mt-1">
                   Founder
