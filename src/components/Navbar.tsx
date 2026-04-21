@@ -99,8 +99,8 @@ const Navbar = () => {
             src="https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/Nakshatra%20Logo.png"
             alt="Nakshatra"
             style={{
-              height: "52px",
-              transform: "scale(1.6)",
+              height: "60px",
+              transform: "scale(2.2)",
               transformOrigin: "center center",
             }}
           />
