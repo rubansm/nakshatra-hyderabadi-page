@@ -2,6 +2,9 @@ const FinalCTA = () => {
   return (
     <section id="final-cta" className="bg-warm-brown py-16 md:py-24">
       <div className="container mx-auto px-4 text-center max-w-2xl">
+        <p className="font-script text-turmeric/90 text-2xl md:text-3xl mb-2">
+          straight from our kitchen —
+        </p>
         <h2 className="font-display text-3xl md:text-4xl font-bold text-cream mb-4">
           Ready to Taste Hyderabad
           <br />
@@ -19,8 +22,11 @@ const FinalCTA = () => {
         >
           Contact us on WhatsApp
         </a>
-        <p className="font-body text-cream/40 text-sm mt-6">
-          © {new Date().getFullYear()} Nakshatra Pickle. Made with ❤️ in Chennai.
+        <p className="font-script text-cream/60 text-xl md:text-2xl mt-8">
+          Made with ❤️ in Chennai
+        </p>
+        <p className="font-body text-cream/40 text-xs mt-2">
+          © {new Date().getFullYear()} Nakshatra Pickle
         </p>
       </div>
     </section>

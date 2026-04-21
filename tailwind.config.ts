@@ -13,9 +13,14 @@ export default {
       },
     },
     fontFamily: {
-      display: ['Poppins', 'sans-serif'],
-      body: ['Poppins', 'sans-serif'],
-      navbar: ['RoxboroughCF', 'serif'],
+      // Serif display — Fraunces — headlines, hero, heritage moments.
+      display: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
+      // Sans body/UI — Manrope — paragraphs, buttons, chrome.
+      body: ['Manrope', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+      // Handwritten accent — Caveat — founder signature, warmth.
+      script: ['Caveat', 'ui-serif', 'Segoe Script', 'cursive'],
+      // Legacy alias kept so any stray `font-navbar` doesn't break.
+      navbar: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
     },
     extend: {
       colors: {
