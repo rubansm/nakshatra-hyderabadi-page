@@ -7,8 +7,10 @@
  *   1. Receives orders + abandoned-cart leads from the site
  *   2. Writes them to the "Orders" / "Leads" tabs in this Sheet
  *   3. Sends the customer a branded HTML confirmation email
- *   4. Pings the owner instantly on Telegram
- *   5. Serves order status to the /track page on the site
+ *   4. Pings the owner instantly on Telegram for real orders
+ *   5. Holds leads for ~20 min before deciding if they're abandoned
+ *      (a time-based trigger sweeps them — see installSweepTrigger)
+ *   6. Serves order status to the /track page on the site
  *
  *  HOW TO DEPLOY
  *   Extensions → Apps Script → paste this file → Save →
@@ -19,6 +21,11 @@
  *   If you ever change anything in this file,
  *   Deploy → Manage deployments → pencil icon → Version: New → Deploy
  *   (otherwise the old code keeps running).
+ *
+ *  ONE-TIME SETUP FOR LEAD SWEEP
+ *   In the Apps Script editor, run `installSweepTrigger` once.
+ *   It schedules `sweepPendingLeads` to run every 15 minutes.
+ *   You can also run `sweepPendingLeads` manually any time.
  * ═══════════════════════════════════════════════════════════════
  */
 
@@ -36,6 +43,10 @@ const CONFIG = {
 
   // Delivery promise (used for "Expected by" in the email)
   DELIVERY_DAYS: 2,
+
+  // How long to wait before deciding a lead is truly abandoned.
+  // Covers OTP delays, back-and-forth, bathroom breaks, etc.
+  LEAD_ABANDON_AFTER_MINUTES: 20,
 
   // Sheet tab names — must match exactly
   SHEETS: {
@@ -132,21 +143,35 @@ function handleOrder(data) {
   try { sendTelegram(telegramMsg); }
   catch (err) { console.error('Telegram failed', err); }
 
+  // Any matching Pending leads from this phone → mark Converted immediately
+  try { markLeadsConvertedForPhone(data.phone); }
+  catch (err) { console.error('Lead conversion sweep failed', err); }
+
   return json({ ok: true, orderId });
 }
 
 
 /* ───────────────────────────────────────────────────────────
  *  LEAD / ABANDONED-CART FLOW
+ *
+ *  New behavior:
+ *   - handleLead just records a "Pending" lead. No alerts.
+ *   - sweepPendingLeads (scheduled every 15 min) decides which
+ *     Pending leads are truly abandoned (no matching order within
+ *     LEAD_ABANDON_AFTER_MINUTES) and only then fires Telegram.
+ *   - Orders immediately mark matching Pending leads as Converted.
  * ─────────────────────────────────────────────────────────── */
+
+const LEAD_HEADERS = [
+  'Date', 'Name', 'Phone', 'Items in Cart',
+  'Estimated Total', 'Dropped At',
+  'WhatsApp Recovery', 'Status', 'Notified?', 'Recovered?', 'Notes',
+];
 
 function handleLead(data) {
   const sheet = getSheet(CONFIG.SHEETS.LEADS);
-  ensureHeaders(sheet, [
-    'Date', 'Name', 'Phone', 'Items in Cart',
-    'Estimated Total', 'Dropped At',
-    'WhatsApp Recovery', 'Recovered?', 'Notes',
-  ]);
+  ensureHeaders(sheet, LEAD_HEADERS);
+  ensureLeadColumns(sheet);  // migrates older sheets that predate Status
 
   const recoveryMsg =
     `Hi ${data.name || ''}! 👋\n\n` +
@@ -165,24 +190,187 @@ function handleLead(data) {
     data.total || '',
     data.step || 'Contact',
     hyperlink,
-    false,
-    '',
+    'Pending',    // Status  ← NEW
+    false,        // Notified? (checkbox) — flipped when Telegram fires
+    false,        // Recovered?
+    '',           // Notes
   ]);
 
   applyLeadsFormatting(sheet);
 
-  const telegramMsg =
-    `⚠️ *Abandoned Cart*\n\n` +
-    `👤 ${escapeMd(data.name)}\n` +
-    `📱 +91 ${data.phone}\n` +
-    `🛒 ${escapeMd(String(data.items || 'N/A'))}\n` +
-    `💰 ₹${data.total || '—'}\n` +
-    `↩ Dropped at: *${escapeMd(data.step || 'Contact')}*`;
+  // NO Telegram here. We wait until sweepPendingLeads confirms abandonment.
+  return json({ ok: true, queued: true });
+}
 
-  try { sendTelegram(telegramMsg); }
-  catch (err) { console.error('Telegram failed', err); }
+/**
+ * Called from handleOrder. Any Leads rows with this phone that are
+ * still Pending (or previously Abandoned) get flipped to Converted so
+ * they stop showing up as "to recover" in the dashboard.
+ */
+function markLeadsConvertedForPhone(phone) {
+  if (!phone) return;
+  const sheet = getSheet(CONFIG.SHEETS.LEADS);
+  if (sheet.getLastRow() < 2) return;
 
-  return json({ ok: true });
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const phoneCol  = headers.indexOf('Phone') + 1;
+  const statusCol = headers.indexOf('Status') + 1;
+  if (phoneCol === 0 || statusCol === 0) return;
+
+  const lastRow = sheet.getLastRow();
+  const phones  = sheet.getRange(2, phoneCol,  lastRow - 1, 1).getValues();
+  const statuses = sheet.getRange(2, statusCol, lastRow - 1, 1).getValues();
+
+  for (let i = 0; i < phones.length; i++) {
+    const ph = String(phones[i][0] || '').trim();
+    const st = String(statuses[i][0] || '').trim();
+    if (ph === String(phone).trim() && (st === 'Pending' || st === 'Abandoned' || st === '')) {
+      sheet.getRange(i + 2, statusCol).setValue('Converted');
+    }
+  }
+}
+
+/**
+ * Time-based trigger target. Runs every 15 min (see installSweepTrigger).
+ *
+ * For each Pending lead older than LEAD_ABANDON_AFTER_MINUTES:
+ *   - If an Order with the same phone was created after the lead → Converted (silent)
+ *   - Else → Abandoned + fire one Telegram and flip Notified? = true
+ *
+ * Safe to run manually any time.
+ */
+function sweepPendingLeads() {
+  const leadsSheet  = getSheet(CONFIG.SHEETS.LEADS);
+  const ordersSheet = getSheet(CONFIG.SHEETS.ORDERS);
+  ensureLeadColumns(leadsSheet);
+
+  if (leadsSheet.getLastRow() < 2) return;
+
+  const lHeaders = leadsSheet.getRange(1, 1, 1, leadsSheet.getLastColumn()).getValues()[0];
+  const col = {
+    date:     lHeaders.indexOf('Date') + 1,
+    phone:    lHeaders.indexOf('Phone') + 1,
+    status:   lHeaders.indexOf('Status') + 1,
+    notified: lHeaders.indexOf('Notified?') + 1,
+    name:     lHeaders.indexOf('Name') + 1,
+    items:    lHeaders.indexOf('Items in Cart') + 1,
+    total:    lHeaders.indexOf('Estimated Total') + 1,
+    step:     lHeaders.indexOf('Dropped At') + 1,
+  };
+  if (col.date === 0 || col.status === 0 || col.phone === 0) return;
+
+  // Build a Set of phones that have placed an order (with lead->order time map)
+  const orderPhonesByDate = buildOrderPhoneIndex(ordersSheet);
+
+  const lastRow = leadsSheet.getLastRow();
+  const numRows = lastRow - 1;
+  const range   = leadsSheet.getRange(2, 1, numRows, leadsSheet.getLastColumn());
+  const values  = range.getValues();
+
+  const now = new Date();
+  const cutoffMs = CONFIG.LEAD_ABANDON_AFTER_MINUTES * 60 * 1000;
+
+  for (let i = 0; i < values.length; i++) {
+    const rowIdx = i + 2;
+    const status = String(values[i][col.status - 1] || '').trim();
+    if (status !== 'Pending' && status !== '') continue;
+
+    const leadDate = values[i][col.date - 1];
+    if (!(leadDate instanceof Date)) continue;
+    if (now.getTime() - leadDate.getTime() < cutoffMs) continue; // too young, wait
+
+    const phone = String(values[i][col.phone - 1] || '').trim();
+
+    // Did this phone place an order AFTER the lead was captured?
+    const orderTimes = orderPhonesByDate[phone] || [];
+    const converted = orderTimes.some(t => t.getTime() >= leadDate.getTime() - 60 * 1000);
+
+    if (converted) {
+      leadsSheet.getRange(rowIdx, col.status).setValue('Converted');
+      continue;
+    }
+
+    // Truly abandoned. Mark + notify once.
+    leadsSheet.getRange(rowIdx, col.status).setValue('Abandoned');
+    if (col.notified > 0) leadsSheet.getRange(rowIdx, col.notified).setValue(true);
+
+    const name  = String(values[i][col.name  - 1] || '');
+    const items = String(values[i][col.items - 1] || 'N/A');
+    const total = values[i][col.total - 1];
+    const step  = String(values[i][col.step  - 1] || 'Contact');
+
+    const ageMin = Math.round((now.getTime() - leadDate.getTime()) / 60000);
+
+    const telegramMsg =
+      `⚠️ *Abandoned Cart*\n\n` +
+      `👤 ${escapeMd(name)}\n` +
+      `📱 +91 ${phone}\n` +
+      `🛒 ${escapeMd(items)}\n` +
+      `💰 ₹${total || '—'}\n` +
+      `↩ Dropped at: *${escapeMd(step)}*  ·  ${ageMin} min ago`;
+
+    try { sendTelegram(telegramMsg); }
+    catch (err) { console.error('Telegram (abandoned) failed', err); }
+  }
+}
+
+/** Map of phone → [order dates], built once per sweep. */
+function buildOrderPhoneIndex(ordersSheet) {
+  const index = {};
+  if (ordersSheet.getLastRow() < 2) return index;
+  const headers = ordersSheet.getRange(1, 1, 1, ordersSheet.getLastColumn()).getValues()[0];
+  const phoneCol = headers.indexOf('Phone');
+  const dateCol  = headers.indexOf('Date');
+  if (phoneCol === -1 || dateCol === -1) return index;
+
+  const values = ordersSheet.getRange(2, 1, ordersSheet.getLastRow() - 1, ordersSheet.getLastColumn()).getValues();
+  for (const row of values) {
+    const ph = String(row[phoneCol] || '').trim();
+    const dt = row[dateCol];
+    if (!ph || !(dt instanceof Date)) continue;
+    if (!index[ph]) index[ph] = [];
+    index[ph].push(dt);
+  }
+  return index;
+}
+
+/**
+ * Run this ONCE from the Apps Script editor. Schedules sweepPendingLeads
+ * to run every 15 minutes. Safe to re-run — it removes any older copy first.
+ */
+function installSweepTrigger() {
+  const triggers = ScriptApp.getProjectTriggers();
+  for (const t of triggers) {
+    if (t.getHandlerFunction() === 'sweepPendingLeads') {
+      ScriptApp.deleteTrigger(t);
+    }
+  }
+  ScriptApp.newTrigger('sweepPendingLeads')
+    .timeBased()
+    .everyMinutes(15)
+    .create();
+  console.log('Sweep trigger installed — runs every 15 minutes.');
+}
+
+/**
+ * Migrates pre-existing Leads sheets that don't yet have the Status /
+ * Notified? columns. Safe to call every time handleLead runs.
+ */
+function ensureLeadColumns(sheet) {
+  if (sheet.getLastRow() === 0) return;
+  const headers = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), 1)).getValues()[0];
+  const needed = ['Status', 'Notified?'];
+  let added = false;
+  for (const name of needed) {
+    if (headers.indexOf(name) === -1) {
+      const newCol = sheet.getLastColumn() + 1;
+      sheet.getRange(1, newCol).setValue(name);
+      sheet.getRange(1, newCol).setFontWeight('bold').setBackground('#FFF3E0').setFontColor('#5D2E00');
+      added = true;
+      headers.push(name);
+    }
+  }
+  if (added) SpreadsheetApp.flush();
 }
 
 
@@ -429,7 +617,21 @@ function applyLeadsFormatting(sheet) {
   const lastRow = sheet.getLastRow();
   if (lastRow < 2) return;
   const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
-  const recCol = headers.indexOf('Recovered?') + 1;
+
+  const statusCol   = headers.indexOf('Status') + 1;
+  const notifiedCol = headers.indexOf('Notified?') + 1;
+  const recCol      = headers.indexOf('Recovered?') + 1;
+
+  if (statusCol > 0) {
+    const rule = SpreadsheetApp.newDataValidation()
+      .requireValueInList(['Pending', 'Converted', 'Abandoned'], true)
+      .setAllowInvalid(true)
+      .build();
+    sheet.getRange(2, statusCol, lastRow - 1, 1).setDataValidation(rule);
+  }
+  if (notifiedCol > 0) {
+    sheet.getRange(2, notifiedCol, lastRow - 1, 1).insertCheckboxes();
+  }
   if (recCol > 0) {
     sheet.getRange(2, recCol, lastRow - 1, 1).insertCheckboxes();
   }
