@@ -12,23 +12,40 @@ const HeroSection = () => {
     <section id="hero" className="relative min-h-screen flex flex-col">
       {/* Video Background */}
       <div className="absolute inset-0">
+        {/* Instant poster fallback (shown until video paints) */}
+        <img
+          src="/hero-poster-mobile.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover md:hidden"
+        />
+        <img
+          src="/hero-poster-desktop.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover hidden md:block"
+        />
         {/* Mobile Video */}
         <video
           src="https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/Untitled%20design%20(1).mp4"
+          poster="/hero-poster-mobile.jpg"
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover md:hidden"
+          preload="metadata"
+          className="relative w-full h-full object-cover md:hidden"
         />
         {/* Desktop Video */}
         <video
           src="https://pub-f43385626ccb4562b4a9240e54322e61.r2.dev/download%20(3).mp4"
+          poster="/hero-poster-desktop.jpg"
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover hidden md:block"
+          preload="metadata"
+          className="relative w-full h-full object-cover hidden md:block"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-warm-brown/30 via-transparent to-warm-brown/40" />
         <div className="absolute bottom-0 left-0 right-0 h-40 md:h-56 bg-gradient-to-b from-transparent to-black pointer-events-none" />
