@@ -51,17 +51,11 @@ const Billing = () => {
             </p>
             <div className="flex flex-col gap-3 max-w-xs mx-auto">
               <button
-                onClick={() => navigate("/pickles")}
+                onClick={() => navigate("/")}
                 className="w-full py-3.5 rounded-lg font-body font-semibold text-white text-sm shadow-sm transition-transform active:scale-[0.98]"
                 style={{ backgroundColor: "#FF8900" }}
               >
-                Browse Pickles
-              </button>
-              <button
-                onClick={() => navigate("/snacks")}
-                className="w-full py-3.5 rounded-lg font-body font-semibold text-foreground text-sm bg-white border border-border/60 hover:border-foreground/40 transition-colors"
-              >
-                Browse Snacks
+                Continue Shopping
               </button>
             </div>
           </div>
@@ -135,7 +129,7 @@ const Billing = () => {
             {/* ── Utility actions ── */}
             <div className="flex items-center justify-between mt-5 mb-6">
               <button
-                onClick={() => navigate("/pickles")}
+                onClick={() => navigate("/")}
                 className="font-body text-sm font-medium text-foreground underline underline-offset-2 decoration-border hover:decoration-foreground transition-colors"
                 style={{ color: "#FF8900" }}
               >
