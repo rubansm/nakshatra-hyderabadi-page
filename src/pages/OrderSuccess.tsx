@@ -264,23 +264,12 @@ const OrderSuccess = () => {
 
         {/* Secondary CTA */}
         <div className="text-center mt-2">
-          <p className="font-body text-xs text-muted-foreground mb-2">
-            Want to try more?
-          </p>
-          <div className="flex gap-2">
-            <button
-              onClick={() => navigate("/pickles")}
-              className="flex-1 py-2.5 rounded-lg font-body font-medium text-xs text-foreground bg-white border border-border/60 hover:border-foreground/40 transition-colors"
-            >
-              Browse Pickles
-            </button>
-            <button
-              onClick={() => navigate("/snacks")}
-              className="flex-1 py-2.5 rounded-lg font-body font-medium text-xs text-foreground bg-white border border-border/60 hover:border-foreground/40 transition-colors"
-            >
-              Browse Snacks
-            </button>
-          </div>
+          <button
+            onClick={() => navigate("/")}
+            className="w-full py-2.5 rounded-lg font-body font-medium text-xs text-foreground bg-white border border-border/60 hover:border-foreground/40 transition-colors"
+          >
+            Back to Home
+          </button>
         </div>
       </div>
     </div>
