@@ -24,7 +24,7 @@ const FounderSection = () => {
               {/* Gradient overlay with handwritten founder signature */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-16 pb-5 px-4 text-center">
                 <p className="font-script text-white text-4xl md:text-5xl font-semibold leading-none">
-                  Vitor Indrapalli
+                  Victor Indrapalli
                 </p>
                 <p className="font-body text-white/70 text-xs uppercase tracking-[0.2em] mt-2">Founder</p>
               </div>
